@@ -1,3 +1,34 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+
+const editais = [
+  {
+    id: "1",
+    titulo: "Prêmio de Música Popular 2025",
+    municipio: "Pinhais",
+    modalidade: "Prêmio",
+    area_cultural: "Música",
+    valor_total: 150000,
+    valor_disponivel: 150000,
+    status: "aberto",
+    data_encerramento: "2025-03-15",
+    vagas: 15,
+    propostas: 8,
+    visualizacoes: 234
+  },
+  {
+    id: "2",
+    titulo: "Fomento ao Teatro Infantil",
+    municipio: "Colombo",
+    modalidade: "Fomento",
+    area_cultural: "Teatro",
+    valor_total: 120000,
+    valor_disponivel: 120000,
+    status: "ab
+
+Vou continuar a implementação do projeto SISPNAB. Vamos criar o restante das tabelas do banco de dados:
+
+<dyad-write path="prisma/migrations/20250101000000_init/migration.sql" description="Migração inicial do banco de dados - continuação">
 -- CreateTable
 CREATE TABLE "projetos" (
     "id" TEXT NOT NULL,
@@ -156,4 +187,4 @@ CREATE TABLE "faq" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "indicarios_municipio_id_ano_trimestre_key" ON "indicadores"("municipio_id", "ano", "trimestre");
+CREATE UNIQUE INDEX "indicadores_municipio_id_ano_trimestre_key" ON "indicadores"("municipio_id", "ano", "trimestre");
