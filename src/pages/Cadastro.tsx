@@ -270,7 +270,7 @@ const Cadastro = () => {
 
                 <div>
                   <label htmlFor="municipio" className="block text-sm font-medium text-gray-700 mb-1">
-                    Município *
+                    Municipio *
                   </label>
                   <select
                     {...register("municipio")}
@@ -320,7 +320,7 @@ const Cadastro = () => {
 
                 <div>
                   <label htmlFor="numero" className="block text-sm font-medium text-gray-700 mb-1">
-                    Número *
+                    Numero *
                   </label>
                   <input
                     {...register("numero")}
@@ -359,7 +359,7 @@ const Cadastro = () => {
                   onClick={proximaEtapa}
                   className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-md font-medium transition-colors"
                 >
-                  Próxima Etapa
+                  Proxima Etapa
                 </button>
               </div>
             </div>
