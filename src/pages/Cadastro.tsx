@@ -35,7 +35,7 @@ const municipios = [
   { value: "pinhais", label: "Pinhais" },
   { value: "piraquara", label: "Piraquara" },
   { value: "colombo", label: "Colombo" },
-];
+] as const;
 
 const areasCulturais = [
   "Música",
@@ -48,12 +48,33 @@ const areasCulturais = [
   "Artes Integradas",
   "Patrimônio Cultural",
   "Outros"
-];
+] as const;
 
 const Cadastro = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [etapa, setEtapa] = useState(1);
   const navigate = useNavigate();
+
+  const defaultValues = {
+    nome: "",
+    cpf: "",
+    data_nascimento: "",
+    telefone: "",
+    cep: "",
+    municipio: "",
+    rua: "",
+    numero: "",
+    bairro: "",
+    complemento: undefined as string | undefined,
+    area_cultural: "",
+    outras_areas: [] as string[],
+    curriculo: "",
+    portfolio: "",
+    email: "",
+    senha: "",
+    confirmar_senha: "",
+    termos: false,
+  } as const satisfies Record<keyof CadastroFormData, unknown>;
 
   const {
     register,
@@ -63,26 +84,7 @@ const Cadastro = () => {
     formState: { errors },
   } = useForm<CadastroFormData>({
     resolver: zodResolver(cadastroSchema),
-    defaultValues: {
-      nome: "",
-      cpf: "",
-      data_nascimento: "",
-      telefone: "",
-      cep: "",
-      municipio: "",
-      rua: "",
-      numero: "",
-      bairro: "",
-      complemento: "",
-      area_cultural: "",
-      outras_areas: [],
-      curriculo: "",
-      portfolio: "",
-      email: "",
-      senha: "",
-      confirmar_senha: "",
-      termos: false,
-    },
+    defaultValues: defaultValues,
   });
 
   const { fields: outrasAreasFields, append: appendOutraArea, remove: removeOutraArea } = useFieldArray({
