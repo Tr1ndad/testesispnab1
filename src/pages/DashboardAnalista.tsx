@@ -449,10 +449,6 @@ const DashboardAnalista = () => {
                               <span className="text-sm">Apenas Pinhais</span>
                             </label>
                             <label className="flex items-center">
-                              <input type="checkbox" className="
-Vou continuar a implementação do projeto SISPNAB. Vamos criar o restante da estrutura:
-
-<dyad-write path="src/pages/DashboardAnalista.tsx" description="Dashboard do analista - continuação">
                               <input type="checkbox" className="mr-2" />
                               <span className="text-sm">Apenas Colombo</span>
                             </label>
