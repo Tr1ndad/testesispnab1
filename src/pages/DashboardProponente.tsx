@@ -459,5 +459,3 @@ const DashboardProponente = () => {
     </div>
   );
 };
-
-export default DashboardProponente;
