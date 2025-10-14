@@ -28,7 +28,7 @@ const ResizableHandle = React.forwardRef<
   }
 >(({ className, withHandle = false, ...props }, ref) => (
   <ResizablePrimitive.PanelResizeHandle
-    ref={ref}
+    ref={ref as any}
     className={cn(
       "relative flex w-px items-center justify-center bg-border after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 after:bg-border data-[panel-direction=vertical]:h-px data-[panel-direction=vertical]:w-full data-[panel-direction=vertical]:flex-col data-[panel-direction=vertical]:after:left-0 data-[panel-direction=vertical]:after:top-1/2 data-[panel-direction=vertical]:after:h-1 data-[panel-direction=vertical]:after:w-full data-[panel-direction=vertical]:after:-translate-y-1/2 data-[panel-direction=vertical]:after:translate-x-0 data-[resize-handle-state=hover]:bg-primary/80 data-[resize-handle-state=hover]:after:bg-primary/80 data-[resize-handle-state=drag]:bg-primary data-[resize-handle-state=drag]:after:bg-primary",
       className

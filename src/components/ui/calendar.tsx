@@ -9,7 +9,7 @@ const Calendar = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DayPicker>
 >(({ className, classNames, showOutsideDays = true, ...props }, ref) => (
   <DayPicker
-    ref={ref}
+    ref={ref as any}
     showOutsideDays={showOutsideDays}
     className={cn("p-3", className)}
     classNames={{
