@@ -64,8 +64,24 @@ const Cadastro = () => {
   } = useForm<CadastroFormData>({
     resolver: zodResolver(cadastroSchema),
     defaultValues: {
-      outras_areas: [],
+      nome: "",
+      cpf: "",
+      data_nascimento: "",
+      telefone: "",
+      cep: "",
+      municipio: "",
+      rua: "",
+      numero: "",
+      bairro: "",
       complemento: "",
+      area_cultural: "",
+      outras_areas: [],
+      curriculo: "",
+      portfolio: "",
+      email: "",
+      senha: "",
+      confirmar_senha: "",
+      termos: false,
     },
   });
 
