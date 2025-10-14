@@ -317,13 +317,6 @@ const DashboardProponente = () => {
                               {projeto.status === "rascunho" ? "Submeter" : "Ver Detalhes"}
                             </Button>
                           </div>
-
-
-Vou continuar a implementação do projeto SISPNAB. Vamos criar o restante da estrutura:
-
-<dyad-write path="src/pages/DashboardProponente.tsx" description="Dashboard do proponente - continuação">
-                            </div>
-                          </div>
                         </div>
                       </div>
                     ))}
