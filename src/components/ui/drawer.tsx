@@ -3,10 +3,7 @@ import { Drawer as DrawerPrimitive } from "vaul";
 
 import { cn } from "@/lib/utils";
 
-const Drawer = ({
-  shouldScaleBackground = true,
-  ...props
-}: React.ComponentProps<typeof DrawerPrimitive.Root>) => (
+const Drawer = ({ shouldScaleBackground = false, ...props }: React.ComponentProps<typeof DrawerPrimitive.Root>) => (
   <DrawerPrimitive.Root
     shouldScaleBackground={shouldScaleBackground}
     {...props}
@@ -42,11 +39,11 @@ const DrawerContent = React.forwardRef<
       ref={ref}
       className={cn(
         "fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border bg-background",
-        className,
+        className
       )}
       {...props}
     >
-      <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted" />
+      <div className="mx-auto mt-4 h-2 w-[100px] shrink-0 rounded-full bg-border" />
       {children}
     </DrawerPrimitive.Content>
   </DrawerPortal>
@@ -69,7 +66,7 @@ const DrawerFooter = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn("mt-auto flex flex-col gap-2 p-4", className)}
+    className={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className)}
     {...props}
   />
 );
@@ -81,10 +78,7 @@ const DrawerTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Title
     ref={ref}
-    className={cn(
-      "text-lg font-semibold leading-none tracking-tight",
-      className,
-    )}
+    className={cn("text-lg font-semibold", className)}
     {...props}
   />
 ));
