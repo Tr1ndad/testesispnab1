@@ -15,7 +15,7 @@ const cadastroSchema = z.object({
   rua: z.string().min(3, "Rua inválida"),
   numero: z.string().min(1, "Número inválido"),
   bairro: z.string().min(3, "Bairro inválido"),
-complemento: z.string().min(0).optional().or(z.literal("")),
+  complemento: z.string().min(0).optional().or(z.literal("")),  // ✅ MUDE ISSO
   area_cultural: z.string().min(1, "Selecione uma área cultural"),
   outras_areas: z.array(z.string()),
   curriculo: z.string().min(10, "Currículo inválido"),
