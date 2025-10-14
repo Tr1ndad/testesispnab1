@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useRouter, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -14,8 +14,7 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const [searchParams] = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   const {
@@ -39,7 +38,7 @@ const Login = () => {
 
       if (response.ok) {
         showSuccess("Login realizado com sucesso!");
-        router.push(callbackUrl);
+        window.location.href = callbackUrl;
       } else {
         const error = await response.json();
         showError(error.message || "Credenciais inválidas");

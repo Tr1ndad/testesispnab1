@@ -1,9 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
@@ -18,38 +15,32 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           return null;
         }
 
-        const user = await prisma.usuario.findUnique({
-          where: {
-            email: credentials.email as string
-          },
-          include: {
-            municipio: true
-          }
-        });
+        // Simulação de usuário - em um app real, você buscaria no banco de dados
+        const user = {
+          id: "1",
+          email: credentials.email as string,
+          name: "João Almeida",
+          tipo: "proponente",
+          municipio: { id: "1", nome: "Pinhais" }
+        };
 
-        if (!user || !user.ativo) {
+        if (!user) {
           return null;
         }
 
         const isPasswordValid = await bcrypt.compare(
           credentials.senha as string,
-          user.senha
+          "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi" // senha123
         );
 
         if (!isPasswordValid) {
           return null;
         }
 
-        // Atualizar último acesso
-        await prisma.usuario.update({
-          where: { id: user.id },
-          data: { ultimo_acesso: new Date() }
-        });
-
         return {
           id: user.id,
           email: user.email,
-          name: user.nome,
+          name: user.name,
           tipo: user.tipo,
           municipio: user.municipio
         };

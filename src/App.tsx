@@ -13,6 +13,7 @@ import DashboardProponente from "./pages/DashboardProponente";
 import DashboardGestor from "./pages/DashboardGestor";
 import DashboardAnalista from "./pages/DashboardAnalista";
 import NotFound from "./pages/NotFound";
+import Editais from "./pages/Editais";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/cadastro" element={<Cadastro />} />
             <Route path="/municipios" element={<Municipios />} />
             <Route path="/municipios/:slug" element={<MunicipioDetalhe />} />
+            <Route path="/editais" element={<Editais />} />
             <Route path="/dashboard/proponente" element={<DashboardProponente />} />
             <Route path="/dashboard/gestor" element={<DashboardGestor />} />
             <Route path="/dashboard/analista" element={<DashboardAnalista />} />

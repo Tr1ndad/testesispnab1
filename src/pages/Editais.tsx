@@ -24,167 +24,161 @@ const editais = [
     area_cultural: "Teatro",
     valor_total: 120000,
     valor_disponivel: 120000,
-    status: "ab
+    status: "aberto",
+    data_encerramento: "2025-03-20",
+    vagas: 10,
+    propostas: 6,
+    visualizacoes: 189
+  },
+  {
+    id: "3",
+    titulo: "Bolsa de Artes Visuais 2024",
+    municipio: "Piraquara",
+    modalidade: "Bolsa",
+    area_cultural: "Artes Visuais",
+    valor_total: 80000,
+    valor_disponivel: 0,
+    status: "encerrado",
+    data_encerramento: "2024-09-30",
+    vagas: 8,
+    propostas: 12,
+    visualizacoes: 156
+  }
+];
 
-Vou continuar a implementação do projeto SISPNAB. Vamos criar o restante das tabelas do banco de dados:
+const Editais = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterStatus, setFilterStatus] = useState("todos");
 
-<dyad-write path="prisma/migrations/20250101000000_init/migration.sql" description="Migração inicial do banco de dados - continuação">
--- CreateTable
-CREATE TABLE "projetos" (
-    "id" TEXT NOT NULL,
-    "edital_id" TEXT NOT NULL,
-    "usuario_id" TEXT NOT NULL,
-    "titulo" VARCHAR(255) NOT NULL,
-    "descricao" TEXT NOT NULL,
-    "justificativa" TEXT,
-    "objetivos" TEXT,
-    "metodologia" TEXT,
-    "cronograma" TEXT,
-    "valor_solicitado" DECIMAL(15,2) NOT NULL,
-    "valor_aprovado" DECIMAL(15,2),
-    "status" VARCHAR(30) NOT NULL DEFAULT 'rascunho',
-    "parecer_tecnico" TEXT,
-    "nota_avaliacao" DECIMAL(5,2),
-    "data_submissao" TIMESTAMP(3),
-    "data_avaliacao" TIMESTAMP(3),
-    "data_inicio_execucao" DATE,
-    "data_fim_execucao" DATE,
-    "categoria" VARCHAR(100),
-    "publico_alvo" VARCHAR(255),
-    "documentos_anexos" TEXT[],
-    "numero_protocolo" VARCHAR(50),
-    "avaliado_por" TEXT,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
+  const filteredEditais = editais.filter(edital => {
+    const matchesSearch = edital.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         edital.municipio.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus = filterStatus === "todos" || edital.status === filterStatus;
+    return matchesSearch && matchesStatus;
+  });
 
-    CONSTRAINT "projetos_pkey" PRIMARY KEY ("id"),
-    CONSTRAINT "projetos_edital_id_fkey" FOREIGN KEY ("edital_id") REFERENCES "editais" ("id") ON DELETE CASCADE,
-    CONSTRAINT "projetos_usuario_id_fkey" FOREIGN KEY ("usuario_id") REFERENCES "usuarios" ("id") ON DELETE CASCADE
-);
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "aberto": return "bg-green-100 text-green-800";
+      case "encerrado": return "bg-gray-100 text-gray-800";
+      default: return "bg-gray-100 text-gray-800";
+    }
+  };
 
--- CreateTable
-CREATE TABLE "indicadores" (
-    "id" TEXT NOT NULL,
-    "municipio_id" TEXT NOT NULL,
-    "ano" INTEGER NOT NULL,
-    "trimestre" INTEGER NOT NULL,
-    "total_projetos" INTEGER NOT NULL DEFAULT 0,
-    "projetos_aprovados" INTEGER NOT NULL DEFAULT 0,
-    "projetos_em_execucao" INTEGER NOT NULL DEFAULT 0,
-    "projetos_concluidos" INTEGER NOT NULL DEFAULT 0,
-    "total_beneficiados" INTEGER NOT NULL DEFAULT 0,
-    "total_investido" DECIMAL(15,2) NOT NULL DEFAULT 0,
-    "total_executado" DECIMAL(15,2) NOT NULL DEFAULT 0,
-    "areas_culturais" JSONB,
-    "editais_publicados" INTEGER NOT NULL DEFAULT 0,
-    "taxa_aprovacao" DECIMAL(5,2),
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
+  const getStatusText = (status: string) => {
+    switch (status) {
+      case "aberto": return "ABERTO";
+      case "encerrado": return "ENCERRADO";
+      default: return status.toUpperCase();
+    }
+  };
 
-    CONSTRAINT "indicadores_pkey" PRIMARY KEY ("id"),
-    CONSTRAINT "indicadores_municipio_id_fkey" FOREIGN KEY ("municipio_id") REFERENCES "municipios" ("id") ON DELETE CASCADE
-);
+  return (
+    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            Editais da PNAB
+          </h1>
+          <p className="text-xl text-gray-600">
+            Chamadas públicas para projetos culturais
+          </p>
+        </div>
 
--- CreateTable
-CREATE TABLE "documentos" (
-    "id" TEXT NOT NULL,
-    "tipo" VARCHAR(50) NOT NULL,
-    "titulo" VARCHAR(255) NOT NULL,
-    "descricao" TEXT,
-    "arquivo" TEXT NOT NULL,
-    "tamanho_bytes" BIGINT,
-    "formato" VARCHAR(10),
-    "municipio_id" TEXT,
-    "edital_id" TEXT,
-    "publico" BOOLEAN NOT NULL DEFAULT true,
-    "downloads" INTEGER NOT NULL DEFAULT 0,
-    "enviado_por" TEXT,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
+        {/* Filtros */}
+        <div className="mb-8 flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
+          <div className="relative max-w-md w-full">
+            <input
+              type="text"
+              placeholder="Buscar edital..."
+              className="w-full px-4 py-3 pl-12 pr-4 text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-200"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+              <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+          </div>
+          
+          <select
+            className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-200"
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+          >
+            <option value="todos">Todos os Status</option>
+            <option value="aberto">Abertos</option>
+            <option value="encerrado">Encerrados</option>
+          </select>
+        </div>
 
-    CONSTRAINT "documentos_pkey" PRIMARY KEY ("id"),
-    CONSTRAINT "documentos_municipio_id_fkey" FOREIGN KEY ("municipio_id") REFERENCES "municipios" ("id") ON DELETE SET NULL,
-    CONSTRAINT "documentos_edital_id_fkey" FOREIGN KEY ("edital_id") REFERENCES "editais" ("id") ON DELETE SET NULL,
-    CONSTRAINT "documentos_enviado_por_fkey" FOREIGN KEY ("enviado_por") REFERENCES "usuarios" ("id") ON DELETE SET NULL
-);
+        {/* Grid de Editais */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredEditais.map((edital) => (
+            <div key={edital.id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+              <div className="flex items-center justify-between mb-4">
+                <span className={getStatusColor(edital.status)}>
+                  {getStatusText(edital.status)}
+                </span>
+                <span className="text-sm text-gray-500">{edital.municipio}</span>
+              </div>
+              
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">{edital.titulo}</h3>
+              <p className="text-gray-600 text-sm mb-4">
+                {edital.modalidade} • {edital.area_cultural}
+              </p>
+              
+              <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
+                <div>
+                  <span className="text-gray-600">Valor Total:</span>
+                  <div className="font-medium text-green-600">
+                    R$ {edital.valor_total.toLocaleString()}
+                  </div>
+                </div>
+                <div>
+                  <span className="text-gray-600">Vagas:</span>
+                  <div className="font-medium">{edital.vagas}</div>
+                </div>
+                <div>
+                  <span className="text-gray-600">Propostas:</span>
+                  <div className="font-medium">{edital.propostas}</div>
+                </div>
+                <div>
+                  <span className="text-gray-600">Encerra:</span>
+                  <div className="font-medium">{edital.data_encerramento}</div>
+                </div>
+              </div>
+              
+              <div className="flex gap-2">
+                <Link
+                  to={`/editais/${edital.id}`}
+                  className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-md text-sm font-medium transition-colors text-center"
+                >
+                  Ver Detalhes
+                </Link>
+                <button className="flex-1 bg-white border border-green-600 text-green-600 hover:bg-green-50 py-2 px-4 rounded-md text-sm font-medium transition-colors">
+                  Baixar PDF
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
 
--- CreateTable
-CREATE TABLE "notificacoes" (
-    "id" TEXT NOT NULL,
-    "usuario_id" TEXT NOT NULL,
-    "titulo" VARCHAR(255) NOT NULL,
-    "mensagem" TEXT NOT NULL,
-    "tipo" VARCHAR(30) NOT NULL,
-    "lida" BOOLEAN NOT NULL DEFAULT false,
-    "link" TEXT,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        {filteredEditais.length === 0 && (
+          <div className="text-center py-12">
+            <div className="text-6xl mb-4">🔍</div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              Nenhum edital encontrado
+            </h3>
+            <p className="text-gray-600">
+              Tente ajustar sua busca ou explore todos os editais disponíveis.
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
 
-    CONSTRAINT "notificacoes_pkey" PRIMARY KEY ("id"),
-    CONSTRAINT "notificacoes_usuario_id_fkey" FOREIGN KEY ("usuario_id") REFERENCES "usuarios" ("id") ON DELETE CASCADE
-);
-
--- CreateTable
-CREATE TABLE "historico_status" (
-    "id" TEXT NOT NULL,
-    "projeto_id" TEXT NOT NULL,
-    "status_anterior" VARCHAR(30),
-    "status_novo" VARCHAR(30) NOT NULL,
-    "observacao" TEXT,
-    "alterado_por" TEXT,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT "historico_status_pkey" PRIMARY KEY ("id"),
-    CONSTRAINT "historico_status_projeto_id_fkey" FOREIGN KEY ("projeto_id") REFERENCES "projetos" ("id") ON DELETE CASCADE
-);
-
--- CreateTable
-CREATE TABLE "avaliacoes" (
-    "id" TEXT NOT NULL,
-    "projeto_id" TEXT NOT NULL,
-    "avaliador_id" TEXT NOT NULL,
-    "qualidade_artistica" DECIMAL(5,2),
-    "viabilidade" DECIMAL(5,2),
-    "impacto_social" DECIMAL(5,2),
-    "orcamento" DECIMAL(5,2),
-    "nota_final" DECIMAL(5,2),
-    "parecer_tecnico" TEXT,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT "avaliacoes_pkey" PRIMARY KEY ("id"),
-    CONSTRAINT "avaliacoes_projeto_id_fkey" FOREIGN KEY ("projeto_id") REFERENCES "projetos" ("id") ON DELETE CASCADE,
-    CONSTRAINT "avaliacoes_avaliador_id_fkey" FOREIGN KEY ("avaliador_id") REFERENCES "usuarios" ("id") ON DELETE CASCADE
-);
-
--- CreateTable
-CREATE TABLE "logs_sistema" (
-    "id" TEXT NOT NULL,
-    "usuario_id" TEXT,
-    "acao" VARCHAR(100) NOT NULL,
-    "entidade" VARCHAR(50),
-    "entidade_id" TEXT,
-    "detalhes" JSONB,
-    "ip_address" TEXT,
-    "user_agent" TEXT,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT "logs_sistema_pkey" PRIMARY KEY ("id"),
-    CONSTRAINT "logs_sistema_usuario_id_fkey" FOREIGN KEY ("usuario_id") REFERENCES "usuarios" ("id") ON DELETE SET NULL
-);
-
--- CreateTable
-CREATE TABLE "faq" (
-    "id" TEXT NOT NULL,
-    "pergunta" TEXT NOT NULL,
-    "resposta" TEXT NOT NULL,
-    "categoria" VARCHAR(50) NOT NULL,
-    "ordem" INTEGER NOT NULL DEFAULT 0,
-    "ativo" BOOLEAN NOT NULL DEFAULT true,
-    "visualizacoes" INTEGER NOT NULL DEFAULT 0,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "faq_pkey" PRIMARY KEY ("id")
-);
-
--- CreateIndex
-CREATE UNIQUE INDEX "indicadores_municipio_id_ano_trimestre_key" ON "indicadores"("municipio_id", "ano", "trimestre");
+export default Editais;
