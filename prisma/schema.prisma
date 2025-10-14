@@ -1,0 +1,252 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Municipio {
+  id                 String   @id @default(cuid())
+  nome               String   @unique
+  codigo_ibge        String   @unique
+  populacao          Int?
+  recursos_totais_recebidos Decimal(15,2) @default(0)
+  recursos_executados Decimal(15,2) @default(0)
+  ativo              Boolean  @default(true)
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
+
+  // Relacionamentos
+  usuarios           Usuario[]
+  editais            Edital[]
+  indicadores        Indicador[]
+  documentos         Documento[]
+
+  @@map("municipios")
+}
+
+model Usuario {
+  id                 String   @id @default(cuid())
+  nome               String
+  email              String   @unique
+  senha              String
+  cpf                String?  @unique
+  telefone           String?
+  tipo               String   // 'visitante', 'proponente', 'gestor', 'analista'
+  municipio_id       String?
+  ativo              Boolean  @default(true)
+  email_verificado   Boolean  @default(false)
+  data_cadastro      DateTime @default(now())
+  ultimo_acesso      DateTime?
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
+
+  // Relacionamentos
+  municipio          Municipio? @relation(fields: [municipio_id], references: [id])
+  projetos           Projeto[]
+  notificacoes       Notificacao[]
+  logs_sistema       LogSistema[]
+  documentos_enviados Documento[] @relation("DocumentosEnviados")
+  avaliacoes         Avaliacao[]
+
+  @@map("usuarios")
+}
+
+model Edital {
+  id                     String   @id @default(cuid())
+  municipio_id           String
+  titulo                 String
+  descricao              String
+  numero_edital          String
+  modalidade             String
+  area_cultural          String?
+  valor_total            Decimal(15,2)
+  valor_disponivel       Decimal(15,2)
+  data_abertura          DateTime
+  data_encerramento      DateTime
+  data_resultado         DateTime?
+  status                 String   @default("rascunho") // 'rascunho', 'aberto', 'encerrado', 'em_analise', 'concluido', 'cancelado'
+  arquivo_pdf            String?
+  requisitos             String?
+  documentos_necessarios String[] // Array
+  vagas                  Int?
+  visualizacoes          Int      @default(0)
+  criado_por             String?
+  created_at             DateTime @default(now())
+  updated_at             DateTime @updatedAt
+
+  // Relacionamentos
+  municipio              Municipio @relation(fields: [municipio_id], references: [id])
+  projetos               Projeto[]
+  documentos             Documento[] @relation("DocumentosEdital")
+
+  @@map("editais")
+}
+
+model Projeto {
+  id                      String   @id @default(cuid())
+  edital_id               String
+  usuario_id              String
+  titulo                  String
+  descricao               String
+  justificativa           String?
+  objetivos               String?
+  metodologia             String?
+  cronograma              String?
+  valor_solicitado        Decimal(15,2)
+  valor_aprovado          Decimal(15,2)?
+  status                  String   @default("rascunho") // 'rascunho', 'submetido', 'em_analise', 'aprovado', 'reprovado', 'em_execucao', 'concluido', 'cancelado'
+  parecer_tecnico         String?
+  nota_avaliacao          Decimal(5,2)?
+  data_submissao          DateTime?
+  data_avaliacao          DateTime?
+  data_inicio_execucao    DateTime?
+  data_fim_execucao       DateTime?
+  categoria               String?
+  publico_alvo            String?
+  documentos_anexos       String[] // Array de URLs
+  numero_protocolo        String?  @unique
+  avaliado_por            String?
+  created_at              DateTime @default(now())
+  updated_at              DateTime @updatedAt
+
+  // Relacionamentos
+  edital                  Edital @relation(fields: [edital_id], references: [id])
+  usuario                 Usuario @relation(fields: [usuario_id], references: [id])
+  avaliacoes              Avaliacao[]
+  historico_status        HistoricoStatus[]
+
+  @@map("projetos")
+}
+
+model Indicador {
+  id                 String   @id @default(cuid())
+  municipio_id       String
+  ano                Int
+  trimestre          Int      @db.SmallInt
+  total_projetos     Int      @default(0)
+  projetos_aprovados Int      @default(0)
+  projetos_em_execucao Int    @default(0)
+  projetos_concluidos Int     @default(0)
+  total_beneficiados Int      @default(0)
+  total_investido    Decimal(15,2) @default(0)
+  total_executado    Decimal(15,2) @default(0)
+  areas_culturais    Json     // {"Música": 10, "Teatro": 5, ...}
+  editais_publicados Int      @default(0)
+  taxa_aprovacao     Decimal(5,2)?
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
+
+  // Relacionamentos
+  municipio          Municipio @relation(fields: [municipio_id], references: [id])
+
+  @@unique([municipio_id, ano, trimestre])
+  @@map("indicadores")
+}
+
+model Documento {
+  id              String   @id @default(cuid())
+  tipo            String   // 'edital', 'legislacao', 'relatorio', 'manual'
+  titulo          String
+  descricao       String?
+  arquivo         String   // URL ou caminho
+  tamanho_bytes   BigInt?
+  formato         String?  // 'pdf', 'doc', 'xls'
+  municipio_id    String?
+  edital_id       String?
+  publico         Boolean  @default(true)
+  downloads       Int      @default(0)
+  enviado_por     String?
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+
+  // Relacionamentos
+  municipio       Municipio? @relation(fields: [municipio_id], references: [id])
+  edital          Edital? @relation(fields: [edital_id], references: [id], name: "DocumentosEdital")
+  enviado_por_rel Usuario? @relation("DocumentosEnviados", fields: [enviado_por], references: [id])
+
+  @@map("documentos")
+}
+
+model Notificacao {
+  id          String   @id @default(cuid())
+  usuario_id  String
+  titulo      String
+  mensagem    String
+  tipo        String   // 'info', 'sucesso', 'alerta', 'erro'
+  lida        Boolean  @default(false)
+  link        String?
+  created_at  DateTime @default(now())
+
+  // Relacionamentos
+  usuario     Usuario @relation(fields: [usuario_id], references: [id], onDelete: Cascade)
+
+  @@map("notificacoes")
+}
+
+model HistoricoStatus {
+  id                String   @id @default(cuid())
+  projeto_id        String
+  status_anterior   String?
+  status_novo       String
+  observacao        String?
+  alterado_por      String?
+  created_at        DateTime @default(now())
+
+  // Relacionamentos
+  projeto           Projeto @relation(fields: [projeto_id], references: [id], onDelete: Cascade)
+
+  @@map("historico_status")
+}
+
+model Avaliacao {
+  id                String   @id @default(cuid())
+  projeto_id        String
+  avaliador_id      String
+  qualidade_artistica Decimal(5,2)?
+  viabilidade       Decimal(5,2)?
+  impacto_social    Decimal(5,2)?
+  orcamento         Decimal(5,2)?
+  nota_final        Decimal(5,2)?
+  parecer_tecnico   String?
+  created_at        DateTime @default(now())
+
+  // Relacionamentos
+  projeto           Projeto @relation(fields: [projeto_id], references: [id], onDelete: Cascade)
+  avaliador         Usuario @relation(fields: [avaliador_id], references: [id])
+
+  @@map("avaliacoes")
+}
+
+model LogSistema {
+  id          String   @id @default(cuid())
+  usuario_id  String?
+  acao        String   // 'login', 'cadastro', 'edicao', 'exclusao'
+  entidade    String?  // 'projeto', 'edital', 'usuario'
+  entidade_id String?
+  detalhes    Json?
+  ip_address  String?
+  user_agent  String?
+  created_at  DateTime @default(now())
+
+  // Relacionamentos
+  usuario     Usuario? @relation(fields: [usuario_id], references: [id])
+
+  @@map("logs_sistema")
+}
+
+model FAQ {
+  id          String   @id @default(cuid())
+  pergunta    String
+  resposta    String
+  categoria   String   // 'geral', 'editais', 'projetos', 'pnab'
+  ordem       Int      @default(0)
+  ativo       Boolean  @default(true)
+  visualizacoes Int    @default(0)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@map("faq")
+}
