@@ -5,7 +5,7 @@ const LoginTest = () => {
 
   const handleTestLogin = async () => {
     console.log('=== TESTE DE LOGIN ===');
-    const success = await login('proponente@app:sispnab.gov.br', 'senha123');
+    const success = await login('proponente@gmail.com', 'senha123');
     console.log('Resultado do login:', success);
   };
 
@@ -26,7 +26,7 @@ const LoginTest = () => {
             onClick={handleTestLogin}
             className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
           >
-            Testar Login (proponente@app:sispnab.gov.br / senha123)
+            Testar Login (proponente@gmail.com / senha123)
           </button>
           <button 
             onClick={logout}
@@ -39,9 +39,9 @@ const LoginTest = () => {
         <div className="bg-white rounded-lg shadow p-6">
           <h2 className="text-xl font-semibold mb-4">Credenciais de Teste</h2>
           <ul className="space-y-2">
-            <li><strong>Proponente:</strong> proponente@app:sispnab.gov.br / senha123</li>
-            <li><strong>Admin:</strong> admin@app:sispnab.gov.br / admin123</li>
-            <li><strong>Analista:</strong> analista@app:sispnab.gov.br / senha123</li>
+            <li><strong>Proponente:</strong> proponente@gmail.com / senha123</li>
+            <li><strong>Admin:</strong> admin@gmail.com / admin123</li>
+            <li><strong>Analista:</strong> analista@gmail.com / senha123</li>
           </ul>
         </div>
       </div>

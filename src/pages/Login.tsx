@@ -31,17 +31,17 @@ const Login = () => {
       // Credenciais de teste
       let loginResult = false;
       
-      if (email === "proponente@app:sispnab.gov.br" && password === "senha123") {
+      if (email === "proponente@gmail.com" && password === "senha123") {
         console.log('Credenciais de proponente corretas!');
         loginResult = await login(email, password);
         console.log('Resultado do login:', loginResult);
         navigate('/dashboard/proponente');
-      } else if (email === "admin@app:sispnab.gov.br" && password === "admin123") {
+      } else if (email === "admin@gmail.com" && password === "admin123") {
         console.log('Credenciais de admin corretas!');
         loginResult = await login(email, password);
         console.log('Resultado do login:', loginResult);
         navigate('/dashboard/admin');
-      } else if (email === "analista@app:sispnab.gov.br" && password === "senha123") {
+      } else if (email === "analista@gmail.com" && password === "senha123") {
         console.log('Credenciais de analista corretas!');
         loginResult = await login(email, password);
         console.log('Resultado do login:', loginResult);
@@ -128,9 +128,9 @@ const Login = () => {
               Dicas de login:
             </p>
             <p className="text-xs text-gray-500 mt-1">
-              Proponente: proponente@app:sispnab.gov.br / senha123<br/>
-              Admin: admin@app:sispnab.gov.br / admin123<br/>
-              Analista: analista@app:sispnab.gov.br / senha123
+              Proponente: proponente@gmail.com / senha123<br/>
+              Admin: admin@gmail.com / admin123<br/>
+              Analista: analista@gmail.com / senha123
             </p>
           </div>
         </form>

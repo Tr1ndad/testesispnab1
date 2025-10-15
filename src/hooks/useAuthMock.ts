@@ -22,7 +22,7 @@ const TEST_USERS: User[] = [
   {
     id: '1',
     name: 'Proponente do Sistema',
-    email: 'proponente@app:sispnab.gov.br',
+    email: 'proponente@gmail.com',
     role: 'proponente',
     permissions: [
       'dashboard',
@@ -37,7 +37,7 @@ const TEST_USERS: User[] = [
   {
     id: '2',
     name: 'Administrador do Sistema',
-    email: 'admin@app:sispnab.gov.br',
+    email: 'admin@gmail.com',
     role: 'admin',
     permissions: [
       'dashboard',
@@ -57,7 +57,7 @@ const TEST_USERS: User[] = [
   {
     id: '3',
     name: 'Analista do Sistema',
-    email: 'analista@app:sispnab.gov.br',
+    email: 'analista@gmail.com',
     role: 'analista',
     permissions: [
       'dashboard',
@@ -74,7 +74,7 @@ const TEST_USERS: User[] = [
   {
     id: '4',
     name: 'Artista do Sistema',
-    email: 'ana.costa.artista@email.com',
+    email: 'ana.costa.artista@gmail.com',
     role: 'artista',
     permissions: [
       'dashboard',
@@ -90,10 +90,10 @@ const TEST_USERS: User[] = [
 
 // Credenciais de teste
 const TEST_CREDENTIALS = {
-  'proponente@app:sispnab.gov.br': 'senha123',
-  'admin@app:sispnab.gov.br': 'admin123',
-  'analista@app:sispnab.gov.br': 'senha123',
-  'ana.costa.artista@email.com': 'senha123'
+  'proponente@gmail.com': 'senha123',
+  'admin@gmail.com': 'admin123',
+  'analista@gmail.com': 'senha123',
+  'ana.costa.artista@gmail.com': 'senha123'
 };
 
 export const useAuthMock = (): AuthReturn => {
