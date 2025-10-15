@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
 
-const indicadoresGerais = {
+const INDICADORES_GERAIS = {
   total_propostas: 127,
   propostas_aprovadas: 89,
   taxa_aprovacao: 70,
@@ -15,7 +15,7 @@ const indicadoresGerais = {
   total_investido: 1750000
 };
 
-const dadosAreaCultural = [
+const DADOS_AREA_CULTURAL = [
   { area: 'Música', valor: 560000, percentual: 32 },
   { area: 'Teatro', valor: 385000, percentual: 22 },
   { area: 'Artes Visuais', valor: 315000, percentual: 18 },
@@ -24,13 +24,13 @@ const dadosAreaCultural = [
   { area: 'Outros', valor: 87500, percentual: 5 }
 ];
 
-const dadosMunicipios = [
+const DADOS_MUNICIPIOS = [
   { municipio: 'Pinhais', propostas: 40, aprovadas: 28, investimento: 620000 },
   { municipio: 'Colombo', propostas: 50, aprovadas: 32, investimento: 680000 },
   { municipio: 'Piraquara', propostas: 37, aprovadas: 29, investimento: 485000 }
 ];
 
-const dadosTendencia = [
+const DADOS_TENDENCIA = [
   { mes: 'Jan', propostas: 8, aprovadas: 6 },
   { mes: 'Fev', propostas: 12, aprovadas: 9 },
   { mes: 'Mar', propostas: 18, aprovadas: 14 },
@@ -50,10 +50,10 @@ const COLORS = ['#10b981', '#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444', '#6b7280'
 const IndicadoresPage = () => {
   const [anoSelecionado, setAnoSelecionado] = useState('2024');
   const [trimestreSelecionado, setTrimestreSelecionado] = useState('4');
-  const [indicadores, setIndicadores] = useState(indicadoresGerais);
-  const [dadosArea, setDadosArea] = useState(dadosAreaCultural);
-  const [dadosMunicipio, setDadosMunicipio] = useState(dadosMunicipios);
-  const [dadosTendencia, setDadosTendencia] = useState(dadosTendencia);
+  const [indicadores, setIndicadores] = useState(INDICADORES_GERAIS);
+  const [dadosArea, setDadosArea] = useState(DADOS_AREA_CULTURAL);
+  const [dadosMunicipio, setDadosMunicipio] = useState(DADOS_MUNICIPIOS);
+  const [dadosTendencia, setDadosTendencia] = useState(DADOS_TENDENCIA);
 
   // Simulação de busca de dados com base nos filtros
   useEffect(() => {
@@ -61,10 +61,10 @@ const IndicadoresPage = () => {
     try {
       const buscarDadosFiltrados = () => {
         // Simulando diferentes dados para cada ano/trimestre
-        let novosIndicadores = { ...indicadoresGerais };
-        let novosDadosArea = [...dadosAreaCultural];
-        let novosDadosMunicipio = [...dadosMunicipios];
-        let novosDadosTendencia = [...dadosTendencia];
+        let novosIndicadores = { ...INDICADORES_GERAIS };
+        let novosDadosArea = [...DADOS_AREA_CULTURAL];
+        let novosDadosMunicipio = [...DADOS_MUNICIPIOS];
+        let novosDadosTendencia = [...DADOS_TENDENCIA];
 
         // Modificar dados baseado no ano selecionado
         if (anoSelecionado === '2023') {
