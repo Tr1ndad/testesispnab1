@@ -157,9 +157,12 @@ const Editais = () => {
                 >
                   Ver Detalhes
                 </Link>
-                <button className="flex-1 bg-white border border-green-600 text-green-600 hover:bg-green-50 py-2 px-4 rounded-md text-sm font-medium transition-colors">
+                <a
+                  href={`/editais/${edital.id}`}
+                  className="flex-1 bg-white border border-green-600 text-green-600 hover:bg-green-50 py-2 px-4 rounded-md text-sm font-medium transition-colors text-center"
+                >
                   Baixar PDF
-                </button>
+                </a>
               </div>
             </div>
           ))}

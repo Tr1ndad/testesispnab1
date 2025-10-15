@@ -84,6 +84,9 @@ const ProjetosPage = () => {
   const [municipioFilter, setMunicipioFilter] = useState('todos');
   const [areaFilter, setAreaFilter] = useState('todos');
 
+  // Simulação de verificação de autenticação
+  const isAuthenticated = false; // Mude para true para testar quando estiver logado
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'aprovado': return 'bg-green-100 text-green-800';
@@ -237,10 +240,13 @@ const ProjetosPage = () => {
               Mostrando <span className="font-semibold">{filteredProjetos.length}</span> de{' '}
               <span className="font-semibold">{projetos.length}</span> projetos
             </p>
-            <Button className="bg-green-600 hover:bg-green-700">
-              <Plus className="mr-2 h-4 w-4" />
-              Novo Projeto
-            </Button>
+            {/* Botão Novo Projeto - só aparece se estiver autenticado */}
+            {isAuthenticated && (
+              <Button className="bg-green-600 hover:bg-green-700">
+                <Plus className="mr-2 h-4 w-4" />
+                Novo Projeto
+              </Button>
+            )}
           </div>
 
           {/* Projects Grid */}
