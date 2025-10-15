@@ -1,8 +1,11 @@
 import { MadeWithDyad } from "@/components/made-with-dyad";
+import Navbar from "@/components/layout/Navbar";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-white">
+      <Navbar />
+      
       {/* Hero Section */}
       <section className="relative py-20 px-4">
         <div className="max-w-7xl mx-auto text-center">
@@ -74,9 +77,9 @@ const Index = () => {
                   <span className="font-medium">28</span>
                 </div>
               </div>
-              <button className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition-colors">
+              <a href="/municipios/pinhais" className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition-colors block text-center">
                 Ver Detalhes
-              </button>
+              </a>
             </div>
 
             {/* Piraquara */}
@@ -97,9 +100,9 @@ const Index = () => {
                   <span className="font-medium">29</span>
                 </div>
               </div>
-              <button className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition-colors">
+              <a href="/municipios/piraquara" className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition-colors block text-center">
                 Ver Detalhes
-              </button>
+              </a>
             </div>
 
             {/* Colombo */}
@@ -120,9 +123,9 @@ const Index = () => {
                   <span className="font-medium">32</span>
                 </div>
               </div>
-              <button className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition-colors">
+              <a href="/municipios/colombo" className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition-colors block text-center">
                 Ver Detalhes
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -154,12 +157,12 @@ const Index = () => {
                 <span>📅 15/03/2025</span>
               </div>
               <div className="flex gap-2">
-                <button className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-md text-sm transition-colors">
+                <a href="/editais/1" className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-md text-sm transition-colors text-center">
                   Ver Detalhes
-                </button>
-                <button className="flex-1 bg-white border border-green-600 text-green-600 hover:bg-green-50 py-2 rounded-md text-sm transition-colors">
+                </a>
+                <a href="/editais/1" className="flex-1 bg-white border border-green-600 text-green-600 hover:bg-green-50 py-2 rounded-md text-sm transition-colors text-center">
                   Baixar PDF
-                </button>
+                </a>
               </div>
             </div>
 
@@ -182,12 +185,12 @@ const Index = () => {
                 <span>📅 20/03/2025</span>
               </div>
               <div className="flex gap-2">
-                <button className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-md text-sm transition-colors">
+                <a href="/editais/2" className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-md text-sm transition-colors text-center">
                   Ver Detalhes
-                </button>
-                <button className="flex-1 bg-white border border-green-600 text-green-600 hover:bg-green-50 py-2 rounded-md text-sm transition-colors">
+                </a>
+                <a href="/editais/2" className="flex-1 bg-white border border-green-600 text-green-600 hover:bg-green-50 py-2 rounded-md text-sm transition-colors text-center">
                   Baixar PDF
-                </button>
+                </a>
               </div>
             </div>
 
@@ -210,12 +213,12 @@ const Index = () => {
                 <span>📅 30/09/2024</span>
               </div>
               <div className="flex gap-2">
-                <button className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-2 rounded-md text-sm transition-colors">
+                <a href="/editais/3" className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-2 rounded-md text-sm transition-colors text-center">
                   Ver Detalhes
-                </button>
-                <button className="flex-1 bg-white border border-gray-600 text-gray-600 hover:bg-gray-50 py-2 rounded-md text-sm transition-colors">
+                </a>
+                <a href="/editais/3" className="flex-1 bg-white border border-gray-600 text-gray-600 hover:bg-gray-50 py-2 rounded-md text-sm transition-colors text-center">
                   Baixar PDF
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -318,9 +321,9 @@ const Index = () => {
           <p className="text-xl mb-8 opacity-90">
             Junte-se a centenas de artistas beneficiados pela PNAB
           </p>
-          <button className="bg-white text-green-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-medium transition-colors">
+          <a href="/cadastro" className="bg-white text-green-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-medium transition-colors inline-block">
             Criar Conta
-          </button>
+          </a>
         </div>
       </section>
 
