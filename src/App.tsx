@@ -28,34 +28,18 @@ import ProponenteEditalDetalhes from './pages/ProponenteEditalDetalhes';
 import ProponenteEditarEdital from './pages/ProponenteEditarEdital';
 import AdminConfiguracoes from './pages/AdminConfiguracoes';
 import AdminDashboard from './pages/AdminDashboard';
-import AnalistaDashboard from './pages/AnalistaDashboard';
+import AnalistaDashboard from './pages/DashboardAnalista';
 import AnalistaNotificacoes from './pages/AnalistaNotificacoes';
 
-// Componente de proteção de rota
+// Componente de proteção de rota - APENAS para rotas que precisam de autenticação
 const ProtectedRoute = ({ children }) => {
-  const { user } = useAuth();
-  return user ? children : <Navigate to="/login" />;
-};
-
-// Componente de redirecionamento após login
-const RedirectAfterLogin = () => {
-  const { user } = useAuth();
+  const { isAuthenticated } = useAuth();
   
-  if (!user) {
-    return <Navigate to="/login" />;
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
   }
   
-  // Redirecionar para o dashboard do respectivo papel
-  switch (user.role) {
-    case 'proponente':
-      return <Navigate to="/dashboard/proponente" />;
-    case 'admin':
-      return <Navigate to="/dashboard/admin" />;
-    case 'analista':
-      return <Navigate to="/dashboard/analista" />;
-    default:
-      return <Navigate to="/login" />;
-  }
+  return children;
 };
 
 function App() {
@@ -63,15 +47,11 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          {/* Rotas públicas */}
+          {/* Rotas PÚBLICAS - SEM PROTEÇÃO, SEM REDIRECIONAMENTO AUTOMÁTICO */}
+          <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
           <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/auth-test" element={<AuthTest />} />
-          
-          {/* Rota raiz - redireciona para dashboard do usuário logado ou login */}
-          <Route path="/" element={<RedirectAfterLogin />} />
-          
-          {/* Rotas públicas sem autenticação */}
           <Route path="/index" element={<Index />} />
           <Route path="/municipios" element={<Municipios />} />
           <Route path="/editais" element={<Editais />} />
@@ -83,10 +63,7 @@ function App() {
           <Route path="/editais/:id" element={<EditalDetalhe />} />
           <Route path="/projetos/:id" element={<ProjetoDetalhe />} />
           
-          {/* Rotas protegidas */}
-          <Route path="/dashboard" element={<RedirectAfterLogin />} />
-          
-          {/* Dashboard padronizados */}
+          {/* Rotas PROTEGIDAS - COM VERIFICAÇÃO DE AUTENTICAÇÃO VIA ProtectedRoute */}
           <Route 
             path="/dashboard/proponente" 
             element={
@@ -216,8 +193,12 @@ function App() {
             } 
           />
           
-          {/* Rota não encontrada */}
-          <Route path="*" element={<Navigate to="/login" />} />
+          {/* Rota não encontrada - redireciona para login se não autenticado */}
+          <Route path="*" element={
+            <ProtectedRoute>
+              <Navigate to="/dashboard/proponente" />
+            </ProtectedRoute>
+          } />
         </Routes>
       </Router>
     </AuthProvider>
