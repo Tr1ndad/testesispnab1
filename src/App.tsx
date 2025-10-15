@@ -3,7 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "@/components/providers/auth-provider";
+import { AuthProviderWrapper } from "@/components/providers/auth-provider";
 import Navbar from "@/components/layout/Navbar";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
@@ -22,13 +22,14 @@ import FAQ from "./pages/FAQ";
 import Contato from "./pages/Contato";
 import EditalDetalhe from "./pages/EditalDetalhe";
 import ProjetoDetalhe from "./pages/ProjetoDetalhe";
+import AuthTestPage from "./pages/AuthTest";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <AuthProvider>
+      <AuthProviderWrapper>
         <Toaster />
         <Sonner />
         <BrowserRouter>
@@ -50,11 +51,12 @@ const App = () => (
             <Route path="/dashboard/proponente" element={<DashboardProponente />} />
             <Route path="/dashboard/gestor" element={<DashboardGestor />} />
             <Route path="/dashboard/analista" element={<DashboardAnalista />} />
+            <Route path="/auth-test" element={<AuthTestPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
-      </AuthProvider>
+      </AuthProviderWrapper>
     </TooltipProvider>
   </QueryClientProvider>
 );

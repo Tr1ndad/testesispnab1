@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { SessionProvider } from "next-auth/react";
+import { AuthProvider } from "@/hooks/useAuthMock";
 
 interface AuthProviderProps {
   children: React.ReactNode;
 }
 
-export function AuthProvider({ children }: AuthProviderProps) {
-  return <SessionProvider>{children}</SessionProvider>;
+export function AuthProviderWrapper({ children }: AuthProviderProps) {
+  return <AuthProvider>{children}</AuthProvider>;
 }

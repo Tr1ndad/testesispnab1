@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { showSuccess, showError } from "@/utils/toast";
+import { useAuth } from "@/hooks/useAuthMock";
 
 const loginSchema = z.object({
   email: z.string().email("Email inválido"),
@@ -14,8 +15,8 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [searchParams] = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/";
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const {
     register,
@@ -28,20 +29,34 @@ const Login = () => {
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
     try {
-      const response = await fetch("/api/auth/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (response.ok) {
+      const success = await login(data.email, data.senha);
+      
+      if (success) {
         showSuccess("Login realizado com sucesso!");
-        window.location.href = callbackUrl;
+        
+        // Redirecionar com base no papel do usuário
+        const user = JSON.parse(localStorage.getItem('mockUser') || '{}');
+        switch (user.role) {
+          case 'admin':
+            navigate('/dashboard/admin');
+            break;
+          case 'gestor':
+            navigate('/dashboard/gestor');
+            break;
+          case 'proponente':
+            navigate('/dashboard/proponente');
+            break;
+          case 'analista':
+            navigate('/dashboard/analista');
+            break;
+          case 'artista':
+            navigate('/dashboard/artista');
+            break;
+          default:
+            navigate('/');
+        }
       } else {
-        const error = await response.json();
-        showError(error.message || "Credenciais inválidas");
+        showError("Email ou senha inválidos");
       }
     } catch (error) {
       showError("Erro ao realizar login");
@@ -62,7 +77,7 @@ const Login = () => {
           </p>
         </div>
         
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-6">
           <div className="space-y-4">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -134,6 +149,18 @@ const Login = () => {
             </p>
           </div>
         </form>
+
+        {/* Credenciais de teste */}
+        <div className="mt-8 p-4 bg-blue-50 rounded-lg">
+          <h3 className="text-sm font-medium text-blue-900 mb-2">Credenciais de Teste:</h3>
+          <div className="text-xs text-blue-700 space-y-1">
+            <p>Admin: admin@sispnab.gov.br / admin123</p>
+            <p>Proponente: joao.almeida@email.com / senha123</p>
+            <p>Gestor Pinhais: fernanda.santos@pinhais.pr.gov.br / senha123</p>
+            <p>Analista: analista@sispnab.gov.br / senha123</p>
+            <p>Artista: ana.costa.artista@email.com / senha123</p>
+          </div>
+        </div>
       </div>
     </div>
   );
