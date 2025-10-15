@@ -66,9 +66,14 @@ const ProponenteEditais = () => {
     }
   };
 
-  const handleEditar = (edital: any) => {
-    // Navegar para página de edição passando o ID do edital
-    navigate(`/proponente/editar-edital/${edital.id}`);
+  const handleVerDetalhes = (edital: any) => {
+    // Navegar para página de detalhes como proponente
+    navigate(`/proponente/edital-detalhes/${edital.id}`);
+  };
+
+  const handleProporProjeto = (edital: any) => {
+    // Navegar para página de criação de projeto com o edital selecionado
+    navigate(`/novo-projeto?edital=${edital.id}`);
   };
 
   return (
@@ -198,7 +203,7 @@ const ProponenteEditais = () => {
                     <Button 
                       size="sm" 
                       className="flex-1"
-                      onClick={() => navigate(`/proponente/editais/${edital.id}`)}
+                      onClick={() => handleVerDetalhes(edital)}
                     >
                       Ver Detalhes
                     </Button>
@@ -206,9 +211,9 @@ const ProponenteEditais = () => {
                       size="sm" 
                       variant="outline"
                       className="flex-1"
-                      onClick={() => handleEditar(edital)}
+                      onClick={() => handleProporProjeto(edital)}
                     >
-                      Editar
+                      Propor Projeto
                     </Button>
                   </div>
                 </CardContent>
