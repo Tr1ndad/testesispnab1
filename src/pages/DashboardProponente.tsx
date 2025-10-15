@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 const DashboardProponente = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("overview");
 
   const stats = [
@@ -36,21 +38,25 @@ const DashboardProponente = () => {
               <h1 className="text-xl font-semibold text-gray-900">SISPNAB</h1>
               <nav className="ml-10 flex space-x-8">
                 <button 
+                  onClick={() => navigate('/proponente/dashboard')}
                   className="text-blue-700 border-b-2 border-blue-700 px-1 pt-1 text-sm font-medium"
                 >
                   Visão Geral
                 </button>
                 <button 
+                  onClick={() => navigate('/proponente/meus-projetos')}
                   className="text-gray-500 hover:text-gray-700 px-1 pt-1 text-sm font-medium"
                 >
                   Meus Projetos
                 </button>
                 <button 
+                  onClick={() => navigate('/proponente/novos-editais')}
                   className="text-gray-500 hover:text-gray-700 px-1 pt-1 text-sm font-medium"
                 >
                   Novos Editais
                 </button>
                 <button 
+                  onClick={() => navigate('/proponente/notificacoes')}
                   className="text-gray-500 hover:text-gray-700 px-1 pt-1 text-sm font-medium"
                 >
                   Notificações
@@ -86,42 +92,6 @@ const DashboardProponente = () => {
           <div className="mb-8">
             <h2 className="text-2xl font-bold text-gray-900">Dashboard do Proponente</h2>
             <p className="mt-1 text-sm text-gray-600">Gerencie suas propostas e acompanhe os editais</p>
-          </div>
-
-          {/* Tabs */}
-          <div className="mb-6 border-b border-gray-200">
-            <nav className="-mb-px flex space-x-8">
-              <button
-                onClick={() => setActiveTab("overview")}
-                className={`py-2 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === "overview"
-                    ? "border-blue-500 text-blue-600"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                }`}
-              >
-                Visão Geral
-              </button>
-              <button
-                onClick={() => setActiveTab("projects")}
-                className={`py-2 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === "projects"
-                    ? "border-blue-500 text-blue-600"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                }`}
-              >
-                Meus Projetos
-              </button>
-              <button
-                onClick={() => setActiveTab("editais")}
-                className={`py-2 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === "editais"
-                    ? "border-blue-500 text-blue-600"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                }`}
-              >
-                Editais
-              </button>
-            </nav>
           </div>
 
           {/* Stats Cards */}
