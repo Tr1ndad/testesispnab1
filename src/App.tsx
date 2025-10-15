@@ -26,6 +26,7 @@ import NovoProjeto from "./pages/NovoProjeto";
 import ProponenteMeusProjetos from "./pages/ProponenteMeusProjetos";
 import ProponenteEditais from "./pages/ProponenteEditais";
 import ProponenteNotificacoes from "./pages/ProponenteNotificacoes";
+import ProponenteEditarEdital from "./pages/ProponenteEditarEdital";
 import AuthTestPage from "./pages/AuthTest";
 
 const queryClient = new QueryClient();
@@ -72,6 +73,7 @@ const AppContent = () => {
         <Route path="/proponente/notificacoes" element={<ProponenteNotificacoes />} />
         <Route path="/proponente/projetos/:id" element={<ProjetoDetalhe />} />
         <Route path="/proponente/editais/:id" element={<EditalDetalhe />} />
+        <Route path="/proponente/editar-edital/:id" element={<ProponenteEditarEdital />} />
         
         <Route path="/novo-projeto" element={<NovoProjeto />} />
         <Route path="/auth-test" element={<AuthTestPage />} />

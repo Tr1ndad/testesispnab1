@@ -66,6 +66,11 @@ const ProponenteEditais = () => {
     }
   };
 
+  const handleEditar = (edital: any) => {
+    // Navegar para página de edição passando o ID do edital
+    navigate(`/proponente/editar-edital/${edital.id}`);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header com barra de navegação do proponente */}
@@ -197,16 +202,14 @@ const ProponenteEditais = () => {
                     >
                       Ver Detalhes
                     </Button>
-                    {edital.status === "aberto" && (
-                      <Button 
-                        size="sm" 
-                        variant="outline"
-                        className="flex-1"
-                        onClick={() => navigate(`/novo-projeto?edital=${edital.id}`)}
-                      >
-                        Propor Projeto
-                      </Button>
-                    )}
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      className="flex-1"
+                      onClick={() => handleEditar(edital)}
+                    >
+                      Editar
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
