@@ -66,7 +66,9 @@ const App = () => {
         <AuthProvider>
           <Toaster />
           <Sonner />
-          <AppContent />
+          <BrowserRouter>
+            <AppContent />
+          </BrowserRouter>
         </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>
