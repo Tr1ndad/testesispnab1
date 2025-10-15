@@ -14,6 +14,9 @@ import DashboardProponente from "./pages/DashboardProponente";
 import DashboardGestor from "./pages/DashboardGestor";
 import DashboardAnalista from "./pages/DashboardAnalista";
 import DashboardAdmin from "./pages/DashboardAdmin";
+import AnalistaAnalises from "./pages/AnalistaAnalises";
+import AdminUsuarios from "./pages/AdminUsuarios";
+import AdminConfiguracoes from "./pages/AdminConfiguracoes";
 import NotFound from "./pages/NotFound";
 import Editais from "./pages/Editais";
 import Projetos from "./pages/Projetos";
@@ -66,6 +69,13 @@ const AppContent = () => {
         <Route path="/dashboard/proponente" element={<DashboardProponente />} />
         <Route path="/dashboard/analista" element={<DashboardAnalista />} />
         <Route path="/dashboard/admin" element={<DashboardAdmin />} />
+        
+        {/* Rotas específicas do analista */}
+        <Route path="/analista/analises" element={<AnalistaAnalises />} />
+        
+        {/* Rotas específicas do admin */}
+        <Route path="/admin/usuarios" element={<AdminUsuarios />} />
+        <Route path="/admin/configuracoes" element={<AdminConfiguracoes />} />
         
         {/* Rotas específicas do proponente */}
         <Route path="/proponente/dashboard" element={<DashboardProponente />} />
