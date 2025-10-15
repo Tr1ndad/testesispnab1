@@ -13,6 +13,7 @@ import MunicipioDetalhe from "./pages/MunicipioDetalhe";
 import DashboardProponente from "./pages/DashboardProponente";
 import DashboardGestor from "./pages/DashboardGestor";
 import DashboardAnalista from "./pages/DashboardAnalista";
+import DashboardAdmin from "./pages/DashboardAdmin";
 import NotFound from "./pages/NotFound";
 import Editais from "./pages/Editais";
 import Projetos from "./pages/Projetos";
@@ -65,8 +66,8 @@ const AppContent = () => {
         
         {/* Rotas de Dashboard */}
         <Route path="/dashboard/proponente" element={<DashboardProponente />} />
-        <Route path="/dashboard/gestor" element={<DashboardGestor />} />
         <Route path="/dashboard/analista" element={<DashboardAnalista />} />
+        <Route path="/dashboard/admin" element={<DashboardAdmin />} />
         
         {/* Rotas específicas do proponente */}
         <Route path="/proponente/meus-projetos" element={<ProponenteMeusProjetos />} />

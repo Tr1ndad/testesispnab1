@@ -1,166 +1,135 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { showSuccess, showError } from "@/utils/toast";
-import { useAuth } from "@/contexts/AuthContext";
-
-const loginSchema = z.object({
-  email: z.string().email("Email inválido"),
-  senha: z.string().min(6, "Senha deve ter no mínimo 6 caracteres"),
-});
-
-type LoginFormData = z.infer<typeof loginSchema>;
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Eye, EyeOff } from "lucide-react";
 
 const Login = () => {
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
-  });
-
-  const onSubmit = async (data: LoginFormData) => {
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
     setIsLoading(true);
+    setError("");
+
     try {
-      const success = await login(data.email, data.senha);
+      // Simular chamada de login
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
-      if (success) {
-        showSuccess("Login realizado com sucesso!");
-        
-        // Redirecionar com base no papel do usuário
-        const user = JSON.parse(localStorage.getItem('mockUser') || '{}');
-        switch (user.role) {
-          case 'admin':
-            navigate('/dashboard/admin');
-            break;
-          case 'gestor':
-            navigate('/dashboard/gestor');
-            break;
-          case 'proponente':
-            navigate('/dashboard/proponente');
-            break;
-          case 'analista':
-            navigate('/dashboard/analista');
-            break;
-          case 'artista':
-            navigate('/dashboard/artista');
-            break;
-          default:
-            navigate('/');
-        }
+      // Simular diferentes usuários para teste
+      if (email === "admin@sispnab.gov.br" && password === "admin123") {
+        navigate("/dashboard/proponente");
+      } else if (email === "analista@sispnab.gov.br" && password === "senha123") {
+        navigate("/dashboard/proponente");
+      } else if (email === "joao.almeida@email.com" && password === "senha123") {
+        navigate("/dashboard/proponente");
+      } else if (email === "ana.costa.artista@email.com" && password === "senha123") {
+        navigate("/dashboard/proponente");
       } else {
-        showError("Email ou senha inválidos");
+        setError("Email ou senha incorretos");
       }
-    } catch (error) {
-      showError("Erro ao realizar login");
+    } catch (err) {
+      setError("Erro ao realizar login");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
-            Entrar no Sistema
-          </h2>
+          <h2 className="text-3xl font-bold text-gray-900">Login</h2>
           <p className="mt-2 text-sm text-gray-600">
-            Acesse sua conta para continuar
+            Entre com suas credenciais para acessar o sistema
           </p>
         </div>
         
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-6">
-          <div className="space-y-4">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email ou CPF
-              </label>
-              <input
-                {...register("email")}
-                type="email"
-                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
-                placeholder="seu@email.com"
-              />
-              {errors.email && (
-                <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+        <Card>
+          <CardHeader>
+            <CardTitle>Acesso ao Sistema</CardTitle>
+            <CardDescription>
+              Digite seu email e senha para continuar
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleLogin} className="space-y-4">
+              <div>
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="seu@email.com"
+                  required
+                />
+              </div>
+              
+              <div>
+                <Label htmlFor="password">Senha</Label>
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4 text-gray-400" />
+                    ) : (
+                      <Eye className="h-4 w-4 text-gray-400" />
+                    )}
+                  </button>
+                </div>
+              </div>
+              
+              {error && (
+                <div className="text-red-600 text-sm">{error}</div>
               )}
+              
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? "Entrando..." : "Entrar"}
+              </Button>
+            </form>
+            
+            <div className="mt-6 text-center">
+              <p className="text-sm text-gray-600">
+                Não tem uma conta?{" "}
+                <button
+                  onClick={() => navigate("/cadastro")}
+                  className="text-blue-600 hover:text-blue-500"
+                >
+                  Cadastre-se
+                </button>
+              </p>
             </div>
             
-            <div>
-              <label htmlFor="senha" className="block text-sm font-medium text-gray-700">
-                Senha
-              </label>
-              <input
-                {...register("senha")}
-                type="password"
-                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
-                placeholder="••••••••"
-              />
-              {errors.senha && (
-                <p className="mt-1 text-sm text-red-600">{errors.senha.message}</p>
-              )}
+            <div className="mt-6 border-t pt-4">
+              <p className="text-xs text-gray-500 mb-2">Usuários de teste:</p>
+              <div className="space-y-1 text-xs text-gray-600">
+                <div>Admin: admin@sispnab.gov.br / admin123</div>
+                <div>Analista: analista@sispnab.gov.br / senha123</div>
+                <div>Proponente: joao.almeida@email.com / senha123</div>
+                <div>Artista: ana.costa.artista@email.com / senha123</div>
+              </div>
             </div>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
-              />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                Lembrar de mim
-              </label>
-            </div>
-
-            <div className="text-sm">
-              <a href="/recuperar-senha" className="font-medium text-green-600 hover:text-green-500">
-                Esqueceu a senha?
-              </a>
-            </div>
-          </div>
-
-          <div>
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isLoading ? "Entrando..." : "Entrar"}
-            </button>
-          </div>
-
-          <div className="text-center">
-            <p className="text-sm text-gray-600">
-              Não tem conta?{" "}
-              <a href="/cadastro" className="font-medium text-green-600 hover:text-green-500">
-                Cadastre-se
-              </a>
-            </p>
-          </div>
-        </form>
-
-        {/* Credenciais de teste */}
-        <div className="mt-8 p-4 bg-blue-50 rounded-lg">
-          <h3 className="text-sm font-medium text-blue-900 mb-2">Credenciais de Teste:</h3>
-          <div className="text-xs text-blue-700 space-y-1">
-            <p>Admin: admin@sispnab.gov.br / admin123</p>
-            <p>Proponente: joao.almeida@email.com / senha123</p>
-            <p>Gestor Pinhais: fernanda.santos@pinhais.pr.gov.br / senha123</p>
-            <p>Analista: analista@sispnab.gov.br / senha123</p>
-            <p>Artista: ana.costa.artista@email.com / senha123</p>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

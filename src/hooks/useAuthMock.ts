@@ -4,7 +4,7 @@ interface User {
   id: string;
   name: string;
   email: string;
-  role: 'admin' | 'gestor' | 'proponente' | 'analista' | 'artista';
+  role: 'admin' | 'analista' | 'proponente' | 'artista';
   municipio?: string;
   permissions: string[];
 }
@@ -56,60 +56,6 @@ const TEST_USERS: User[] = [
   },
   {
     id: '3',
-    name: 'Fernanda Santos',
-    email: 'fernanda.santos@pinhais.pr.gov.br',
-    role: 'gestor',
-    municipio: 'Pinhais',
-    permissions: [
-      'dashboard',
-      'municipios',
-      'editais',
-      'projetos',
-      'indicadores',
-      'sobre',
-      'faq',
-      'contato',
-      'gestor'
-    ]
-  },
-  {
-    id: '4',
-    name: 'Carlos Silva',
-    email: 'carlos.silva@colombo.pr.gov.br',
-    role: 'gestor',
-    municipio: 'Colombo',
-    permissions: [
-      'dashboard',
-      'municipios',
-      'editais',
-      'projetos',
-      'indicadores',
-      'sobre',
-      'faq',
-      'contato',
-      'gestor'
-    ]
-  },
-  {
-    id: '5',
-    name: 'Roberto Lima',
-    email: 'roberto.lima@piraquara.pr.gov.br',
-    role: 'gestor',
-    municipio: 'Piraquara',
-    permissions: [
-      'dashboard',
-      'municipios',
-      'editais',
-      'projetos',
-      'indicadores',
-      'sobre',
-      'faq',
-      'contato',
-      'gestor'
-    ]
-  },
-  {
-    id: '6',
     name: 'Maria Fernandes',
     email: 'analista@sispnab.gov.br',
     role: 'analista',
@@ -126,7 +72,7 @@ const TEST_USERS: User[] = [
     ]
   },
   {
-    id: '7',
+    id: '4',
     name: 'Ana Costa',
     email: 'ana.costa.artista@email.com',
     role: 'artista',
@@ -146,9 +92,6 @@ const TEST_USERS: User[] = [
 const TEST_CREDENTIALS = {
   'admin@sispnab.gov.br': 'admin123',
   'joao.almeida@email.com': 'senha123',
-  'fernanda.santos@pinhais.pr.gov.br': 'senha123',
-  'carlos.silva@colombo.pr.gov.br': 'senha123',
-  'roberto.lima@piraquara.pr.gov.br': 'senha123',
   'analista@sispnab.gov.br': 'senha123',
   'ana.costa.artista@email.com': 'senha123'
 };

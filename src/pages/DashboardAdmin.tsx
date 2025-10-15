@@ -3,32 +3,32 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
-const DashboardProponente = () => {
+const DashboardAdmin = () => {
   const [activeTab, setActiveTab] = useState("overview");
 
   const stats = [
-    { title: "Editais Disponíveis", value: "12", change: "+3", icon: "📋" },
-    { title: "Projetos em Andamento", value: "3", change: "+1", icon: "🚀" },
-    { title: "Propostas Enviadas", value: "8", change: "+2", icon: "📝" },
-    { title: "Projetos Aprovados", value: "2", change: "+1", icon: "✅" },
+    { title: "Total de Editais", value: "45", change: "+5", icon: "📋" },
+    { title: "Projetos Ativos", value: "128", change: "+12", icon: "🚀" },
+    { title: "Usuários Cadastrados", value: "1,234", change: "+45", icon: "👥" },
+    { title: "Municípios Ativos", value: "18", change: "+2", icon: "🏛️" },
   ];
 
   const recentActivities = [
-    { id: 1, action: "Nova proposta enviada", edital: "Prêmio de Música Popular 2025", date: "2 dias atrás" },
-    { id: 2, action: "Proposta aprovada", edital: "Fomento ao Teatro Infantil", date: "5 dias atrás" },
-    { id: 3, action: "Edital encerrado", edital: "Bolsa de Artes Visuais 2024", date: "1 semana atrás" },
-    { id: 4, action: "Nova inscrição", edital: "Prêmio de Dança Contemporânea", date: "2 semanas atrás" },
+    { id: 1, action: "Novo edital criado", user: "Maria Fernandes", date: "1 hora atrás" },
+    { id: 2, action: "Projeto aprovado", user: "João Almeida", date: "2 horas atrás" },
+    { id: 3, action: "Novo usuário cadastrado", user: "Ana Costa", date: "3 horas atrás" },
+    { id: 4, action: "Edital atualizado", user: "Carlos Silva", date: "5 horas atrás" },
   ];
 
-  const upcomingDeadlines = [
-    { id: 1, title: "Prêmio de Música Popular 2025", deadline: "15/03/2025", daysLeft: 5 },
-    { id: 2, title: "Fomento ao Teatro Infantil", deadline: "20/03/2025", daysLeft: 10 },
-    { id: 3, title: "Bolsa de Artes Visuais 2025", deadline: "30/04/2025", daysLeft: 51 },
+  const systemAlerts = [
+    { id: 1, type: "warning", message: "3 editais encerrando esta semana", date: "2 horas atrás" },
+    { id: 2, type: "info", message: "Backup do sistema realizado com sucesso", date: "1 dia atrás" },
+    { id: 3, type: "error", message: "Falha na notificação de 2 usuários", date: "2 dias atrás" },
   ];
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header com barra de navegação do proponente */}
+      {/* Header com barra de navegação do admin */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -43,17 +43,22 @@ const DashboardProponente = () => {
                 <button 
                   className="text-gray-500 hover:text-gray-700 px-1 pt-1 text-sm font-medium"
                 >
-                  Meus Projetos
+                  Editais
                 </button>
                 <button 
                   className="text-gray-500 hover:text-gray-700 px-1 pt-1 text-sm font-medium"
                 >
-                  Novos Editais
+                  Projetos
                 </button>
                 <button 
                   className="text-gray-500 hover:text-gray-700 px-1 pt-1 text-sm font-medium"
                 >
-                  Notificações
+                  Usuários
+                </button>
+                <button 
+                  className="text-gray-500 hover:text-gray-700 px-1 pt-1 text-sm font-medium"
+                >
+                  Relatórios
                 </button>
               </nav>
             </div>
@@ -67,11 +72,11 @@ const DashboardProponente = () => {
               </button>
               <div className="flex items-center space-x-3">
                 <div>
-                  <p className="text-sm font-medium text-gray-900">João Almeida</p>
-                  <p className="text-xs text-gray-500">Proponente</p>
+                  <p className="text-sm font-medium text-gray-900">Administrador</p>
+                  <p className="text-xs text-gray-500">Admin</p>
                 </div>
-                <div className="h-8 w-8 rounded-full bg-blue-400 flex items-center justify-center text-white text-sm font-medium">
-                  JA
+                <div className="h-8 w-8 rounded-full bg-purple-400 flex items-center justify-center text-white text-sm font-medium">
+                  AD
                 </div>
               </div>
             </div>
@@ -84,8 +89,8 @@ const DashboardProponente = () => {
         <div className="px-4 py-6 sm:px-0">
           {/* Header */}
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900">Dashboard do Proponente</h2>
-            <p className="mt-1 text-sm text-gray-600">Gerencie suas propostas e acompanhe os editais</p>
+            <h2 className="text-2xl font-bold text-gray-900">Dashboard do Administrador</h2>
+            <p className="mt-1 text-sm text-gray-600">Visão geral completa do sistema e controle total</p>
           </div>
 
           {/* Tabs */}
@@ -102,16 +107,6 @@ const DashboardProponente = () => {
                 Visão Geral
               </button>
               <button
-                onClick={() => setActiveTab("projects")}
-                className={`py-2 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === "projects"
-                    ? "border-blue-500 text-blue-600"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                }`}
-              >
-                Meus Projetos
-              </button>
-              <button
                 onClick={() => setActiveTab("editais")}
                 className={`py-2 px-1 border-b-2 font-medium text-sm ${
                   activeTab === "editais"
@@ -120,6 +115,26 @@ const DashboardProponente = () => {
                 }`}
               >
                 Editais
+              </button>
+              <button
+                onClick={() => setActiveTab("projetos")}
+                className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                  activeTab === "projetos"
+                    ? "border-blue-500 text-blue-600"
+                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                }`}
+              >
+                Projetos
+              </button>
+              <button
+                onClick={() => setActiveTab("usuarios")}
+                className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                  activeTab === "usuarios"
+                    ? "border-blue-500 text-blue-600"
+                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                }`}
+              >
+                Usuários
               </button>
             </nav>
           </div>
@@ -149,7 +164,7 @@ const DashboardProponente = () => {
               <Card>
                 <CardHeader>
                   <CardTitle>Atividades Recentes</CardTitle>
-                  <CardDescription>Suas últimas interações com o sistema</CardDescription>
+                  <CardDescription>Últimas ações no sistema</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
@@ -160,7 +175,7 @@ const DashboardProponente = () => {
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium text-gray-900">{activity.action}</p>
-                          <p className="text-sm text-gray-500">{activity.edital}</p>
+                          <p className="text-sm text-gray-500">por {activity.user}</p>
                         </div>
                         <div className="text-sm text-gray-400">{activity.date}</div>
                       </div>
@@ -170,24 +185,28 @@ const DashboardProponente = () => {
               </Card>
             </div>
 
-            {/* Upcoming Deadlines */}
+            {/* System Alerts */}
             <div>
               <Card>
                 <CardHeader>
-                  <CardTitle>Prazos Próximos</CardTitle>
-                  <CardDescription>Editais com prazo de inscrição próximo</CardDescription>
+                  <CardTitle>Alertas do Sistema</CardTitle>
+                  <CardDescription>Notificações importantes</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {upcomingDeadlines.map((deadline) => (
-                      <div key={deadline.id} className="border-l-4 border-red-500 pl-4">
+                    {systemAlerts.map((alert) => (
+                      <div key={alert.id} className="border-l-4 pl-4">
                         <div className="flex justify-between items-start">
                           <div>
-                            <p className="text-sm font-medium text-gray-900">{deadline.title}</p>
-                            <p className="text-sm text-gray-500">Encerra em {deadline.deadline}</p>
+                            <p className="text-sm font-medium text-gray-900">{alert.message}</p>
+                            <p className="text-xs text-gray-500">{alert.date}</p>
                           </div>
-                          <Badge className="bg-red-100 text-red-800">
-                            {deadline.daysLeft} dias
+                          <Badge className={
+                            alert.type === "warning" ? "bg-yellow-100 text-yellow-800" :
+                            alert.type === "error" ? "bg-red-100 text-red-800" :
+                            "bg-blue-100 text-blue-800"
+                          }>
+                            {alert.type}
                           </Badge>
                         </div>
                       </div>
@@ -203,4 +222,4 @@ const DashboardProponente = () => {
   );
 };
 
-export default DashboardProponente;
+export default DashboardAdmin;

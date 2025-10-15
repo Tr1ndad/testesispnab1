@@ -50,3 +50,33 @@ export const useProtectedRoute = () => {
   
   return { isAuthenticated: true, user };
 };
+
+// Hierarquia de cargos
+export const ROLES = {
+  ADMIN: 'admin',           // Cargo mais alto
+  ANALISTA: 'analista',
+  PROPONENTE: 'proponente',
+  ARTISTA: 'artista',
+  VISITANTE: 'visitante'    // Cargo mais baixo
+};
+
+// Função para verificar se um usuário tem um cargo específico
+export const hasRole = (user: any, role: string): boolean => {
+  return user?.role === role;
+};
+
+// Função para verificar se um usuário tem um cargo superior ou igual
+export const hasRoleOrHigher = (user: any, role: string): boolean => {
+  const roleHierarchy = {
+    [ROLES.ADMIN]: 4,
+    [ROLES.ANALISTA]: 3,
+    [ROLES.PROPONENTE]: 2,
+    [ROLES.ARTISTA]: 1,
+    [ROLES.VISITANTE]: 0
+  };
+  
+  const userRoleLevel = roleHierarchy[user?.role] || 0;
+  const requiredRoleLevel = roleHierarchy[role] || 0;
+  
+  return userRoleLevel >= requiredRoleLevel;
+};
