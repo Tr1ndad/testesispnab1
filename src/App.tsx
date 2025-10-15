@@ -31,7 +31,11 @@ const AppContent = () => {
 
   return (
     <>
-      {/* Renderizar a barra do visitante apenas quando não estiver autenticado */}
+      {/* 
+        LÓGICA CORRETA:
+        - Mostra barra de visitante (Navbar) apenas quando NÃO estiver autenticado
+        - Quando autenticado, a barra específica do dashboard é renderizada dentro do componente
+      */}
       {!isAuthenticated && <Navbar />}
       
       <Routes>
@@ -61,7 +65,7 @@ const AppContent = () => {
 
 const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryclient}>
       <TooltipProvider>
         <AuthProvider>
           <Toaster />
