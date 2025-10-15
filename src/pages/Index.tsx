@@ -1,4 +1,5 @@
 import { MadeWithDyad } from "@/components/made-with-dyad";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   return (
@@ -14,12 +15,16 @@ const Index = () => {
             Sistema de Informação da Política Nacional Aldir Blanc
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-medium transition-colors">
-              Explorar Municípios
-            </button>
-            <button className="bg-white hover:bg-gray-50 text-green-600 border-2 border-green-600 px-8 py-3 rounded-lg font-medium transition-colors">
-              Ver Editais Abertos
-            </button>
+            <Link to="/municipios">
+              <button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-medium transition-colors">
+                Explorar Municípios
+              </button>
+            </Link>
+            <Link to="/editais">
+              <button className="bg-white hover:bg-gray-50 text-green-600 border-2 border-green-600 px-8 py-3 rounded-lg font-medium transition-colors">
+                Ver Editais Abertos
+              </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -75,9 +80,11 @@ const Index = () => {
                   <span className="font-medium">28</span>
                 </div>
               </div>
-              <a href="/municipios/pinhais" className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition-colors block text-center">
-                Ver Detalhes
-              </a>
+              <Link to="/municipios/pinhais">
+                <a className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition-colors block text-center">
+                  Ver Detalhes
+                </a>
+              </Link>
             </div>
 
             {/* Piraquara */}
@@ -98,9 +105,11 @@ const Index = () => {
                   <span className="font-medium">29</span>
                 </div>
               </div>
-              <a href="/municipios/piraquara" className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition-colors block text-center">
-                Ver Detalhes
-              </a>
+              <Link to="/municipios/piraquara">
+                <a className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition-colors block text-center">
+                  Ver Detalhes
+                </a>
+              </Link>
             </div>
 
             {/* Colombo */}
@@ -121,9 +130,11 @@ const Index = () => {
                   <span className="font-medium">32</span>
                 </div>
               </div>
-              <a href="/municipios/colombo" className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition-colors block text-center">
-                Ver Detalhes
-              </a>
+              <Link to="/municipios/colombo">
+                <a className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition-colors block text-center">
+                  Ver Detalhes
+                </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -155,12 +166,16 @@ const Index = () => {
                 <span>📅 15/03/2025</span>
               </div>
               <div className="flex gap-2">
-                <a href="/editais/1" className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-md text-sm transition-colors text-center">
-                  Ver Detalhes
-                </a>
-                <a href="/editais/1" className="flex-1 bg-white border border-green-600 text-green-600 hover:bg-green-50 py-2 rounded-md text-sm transition-colors text-center">
-                  Baixar PDF
-                </a>
+                <Link to="/editais/1">
+                  <a className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-md text-sm transition-colors text-center">
+                    Ver Detalhes
+                  </a>
+                </Link>
+                <Link to="/editais/1">
+                  <a className="flex-1 bg-white border border-green-600 text-green-600 hover:bg-green-50 py-2 rounded-md text-sm transition-colors text-center">
+                    Baixar PDF
+                  </a>
+                </Link>
               </div>
             </div>
 
@@ -183,12 +198,16 @@ const Index = () => {
                 <span>📅 20/03/2025</span>
               </div>
               <div className="flex gap-2">
-                <a href="/editais/2" className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-md text-sm transition-colors text-center">
-                  Ver Detalhes
-                </a>
-                <a href="/editais/2" className="flex-1 bg-white border border-green-600 text-green-600 hover:bg-green-50 py-2 rounded-md text-sm transition-colors text-center">
-                  Baixar PDF
-                </a>
+                <Link to="/editais/2">
+                  <a className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-md text-sm transition-colors text-center">
+                    Ver Detalhes
+                  </a>
+                </Link>
+                <Link to="/editais/2">
+                  <a className="flex-1 bg-white border border-green-600 text-green-600 hover:bg-green-50 py-2 rounded-md text-sm transition-colors text-center">
+                    Baixar PDF
+                  </a>
+                </Link>
               </div>
             </div>
 
@@ -211,12 +230,16 @@ const Index = () => {
                 <span>📅 30/09/2024</span>
               </div>
               <div className="flex gap-2">
-                <a href="/editais/3" className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-2 rounded-md text-sm transition-colors text-center">
-                  Ver Detalhes
-                </a>
-                <a href="/editais/3" className="flex-1 bg-white border border-gray-600 text-gray-600 hover:bg-gray-50 py-2 rounded-md text-sm transition-colors text-center">
-                  Baixar PDF
-                </a>
+                <Link to="/editais/3">
+                  <a className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-2 rounded-md text-sm transition-colors text-center">
+                    Ver Detalhes
+                  </a>
+                </Link>
+                <Link to="/editais/3">
+                  <a className="flex-1 bg-white border border-gray-600 text-gray-600 hover:bg-gray-50 py-2 rounded-md text-sm transition-colors text-center">
+                    Baixar PDF
+                  </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -319,9 +342,11 @@ const Index = () => {
           <p className="text-xl mb-8 opacity-90">
             Junte-se a centenas de artistas beneficiados pela PNAB
           </p>
-          <a href="/cadastro" className="bg-white text-green-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-medium transition-colors inline-block">
-            Criar Conta
-          </a>
+          <Link to="/cadastro">
+            <a className="bg-white text-green-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-medium transition-colors inline-block">
+              Criar Conta
+            </a>
+          </Link>
         </div>
       </section>
 
@@ -338,18 +363,18 @@ const Index = () => {
             <div>
               <h3 className="text-lg font-semibold mb-4">Institucional</h3>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="/sobre" className="hover:text-white transition-colors">Sobre</a></li>
-                <li><a href="/legislacao" className="hover:text-white transition-colors">Legislação</a></li>
-                <li><a href="/faq" className="hover:text-white transition-colors">FAQ</a></li>
-                <li><a href="/contato" className="hover:text-white transition-colors">Contato</a></li>
+                <li><Link to="/sobre"><a className="hover:text-white transition-colors">Sobre</a></Link></li>
+                <li><Link to="/legislacao"><a className="hover:text-white transition-colors">Legislação</a></Link></li>
+                <li><Link to="/faq"><a className="hover:text-white transition-colors">FAQ</a></Link></li>
+                <li><Link to="/contato"><a className="hover:text-white transition-colors">Contato</a></Link></li>
               </ul>
             </div>
             <div>
               <h3 className="text-lg font-semibold mb-4">Municípios</h3>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="/municipios/pinhais" className="hover:text-white transition-colors">Pinhais</a></li>
-                <li><a href="/municipios/piraquara" className="hover:text-white transition-colors">Piraquara</a></li>
-                <li><a href="/municipios/colombo" className="hover:text-white transition-colors">Colombo</a></li>
+                <li><Link to="/municipios/pinhais"><a className="hover:text-white transition-colors">Pinhais</a></Link></li>
+                <li><Link to="/municipios/piraquara"><a className="hover:text-white transition-colors">Piraquara</a></Link></li>
+                <li><Link to="/municipios/colombo"><a className="hover:text-white transition-colors">Colombo</a></Link></li>
               </ul>
             </div>
             <div>
