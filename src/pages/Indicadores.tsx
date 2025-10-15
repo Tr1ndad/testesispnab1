@@ -57,58 +57,60 @@ const IndicadoresPage = () => {
 
   // Simulação de busca de dados com base nos filtros
   useEffect(() => {
-    // Aqui você faria uma chamada à API para buscar os dados filtrados
-    // Por enquanto, vamos simular com dados diferentes para cada filtro
-    
-    const buscarDadosFiltrados = () => {
-      // Simulando diferentes dados para cada ano/trimestre
-      let novosIndicadores = { ...indicadoresGerais };
-      let novosDadosArea = [...dadosAreaCultural];
-      let novosDadosMunicipio = [...dadosMunicipios];
-      let novosDadosTendencia = [...dadosTendencia];
+    // Adicionando tratamento de erro para evitar loops infinitos
+    try {
+      const buscarDadosFiltrados = () => {
+        // Simulando diferentes dados para cada ano/trimestre
+        let novosIndicadores = { ...indicadoresGerais };
+        let novosDadosArea = [...dadosAreaCultural];
+        let novosDadosMunicipio = [...dadosMunicipios];
+        let novosDadosTendencia = [...dadosTendencia];
 
-      // Modificar dados baseado no ano selecionado
-      if (anoSelecionado === '2023') {
-        novosIndicadores = {
-          ...novosIndicadores,
-          total_propostas: Math.floor(novosIndicadores.total_propostas * 0.85),
-          propostas_aprovadas: Math.floor(novosIndicadores.propostas_aprovadas * 0.85),
-          total_artistas: Math.floor(novosIndicadores.total_artistas * 0.85),
-          total_investido: Math.floor(novosIndicadores.total_investido * 0.85)
-        };
-      } else if (anoSelecionado === '2022') {
-        novosIndicadores = {
-          ...novosIndicadores,
-          total_propostas: Math.floor(novosIndicadores.total_propostas * 0.7),
-          propostas_aprovadas: Math.floor(novosIndicadores.propostas_aprovadas * 0.7),
-          total_artistas: Math.floor(novosIndicadores.total_artistas * 0.7),
-          total_investido: Math.floor(novosIndicadores.total_investido * 0.7)
-        };
-      }
+        // Modificar dados baseado no ano selecionado
+        if (anoSelecionado === '2023') {
+          novosIndicadores = {
+            ...novosIndicadores,
+            total_propostas: Math.floor(novosIndicadores.total_propostas * 0.85),
+            propostas_aprovadas: Math.floor(novosIndicadores.propostas_aprovadas * 0.85),
+            total_artistas: Math.floor(novosIndicadores.total_artistas * 0.85),
+            total_investido: Math.floor(novosIndicadores.total_investido * 0.85)
+          };
+        } else if (anoSelecionado === '2022') {
+          novosIndicadores = {
+            ...novosIndicadores,
+            total_propostas: Math.floor(novosIndicadores.total_propostas * 0.7),
+            propostas_aprovadas: Math.floor(novosIndicadores.propostas_aprovadas * 0.7),
+            total_artistas: Math.floor(novosIndicadores.total_artistas * 0.7),
+            total_investido: Math.floor(novosIndicadores.total_investido * 0.7)
+          };
+        }
 
-      // Modificar dados baseado no trimestre
-      if (trimestreSelecionado === '1') {
-        // Primeiro trimestre - dados mais baixos
-        novosIndicadores.total_propostas = Math.floor(novosIndicadores.total_propostas * 0.25);
-        novosIndicadores.propostas_aprovadas = Math.floor(novosIndicadores.propostas_aprovadas * 0.25);
-      } else if (trimestreSelecionado === '2') {
-        // Segundo trimestre
-        novosIndicadores.total_propostas = Math.floor(novosIndicadores.total_propostas * 0.5);
-        novosIndicadores.propostas_aprovadas = Math.floor(novosIndicadores.propostas_aprovadas * 0.5);
-      } else if (trimestreSelecionado === '3') {
-        // Terceiro trimestre
-        novosIndicadores.total_propostas = Math.floor(novosIndicadores.total_propostas * 0.75);
-        novosIndicadores.propostas_aprovadas = Math.floor(novosIndicadores.propostas_aprovadas * 0.75);
-      }
+        // Modificar dados baseado no trimestre
+        if (trimestreSelecionado === '1') {
+          // Primeiro trimestre - dados mais baixos
+          novosIndicadores.total_propostas = Math.floor(novosIndicadores.total_propostas * 0.25);
+          novosIndicadores.propostas_aprovadas = Math.floor(novosIndicadores.propostas_aprovadas * 0.25);
+        } else if (trimestreSelecionado === '2') {
+          // Segundo trimestre
+          novosIndicadores.total_propostas = Math.floor(novosIndicadores.total_propostas * 0.5);
+          novosIndicadores.propostas_aprovadas = Math.floor(novosIndicadores.propostas_aprovadas * 0.5);
+        } else if (trimestreSelecionado === '3') {
+          // Terceiro trimestre
+          novosIndicadores.total_propostas = Math.floor(novosIndicadores.total_propostas * 0.75);
+          novosIndicadores.propostas_aprovadas = Math.floor(novosIndicadores.propostas_aprovadas * 0.75);
+        }
 
-      // Atualizar os dados
-      setIndicadores(novosIndicadores);
-      setDadosArea(novosDadosArea);
-      setDadosMunicipio(novosDadosMunicipio);
-      setDadosTendencia(novosDadosTendencia);
-    };
+        // Atualizar os dados
+        setIndicadores(novosIndicadores);
+        setDadosArea(novosDadosArea);
+        setDadosMunicipio(novosDadosMunicipio);
+        setDadosTendencia(novosDadosTendencia);
+      };
 
-    buscarDadosFiltrados();
+      buscarDadosFiltrados();
+    } catch (error) {
+      console.error('Erro ao buscar dados:', error);
+    }
   }, [anoSelecionado, trimestreSelecionado]);
 
   return (

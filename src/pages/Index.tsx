@@ -1,7 +1,20 @@
 import { MadeWithDyad } from "@/components/made-with-dyad";
 import { Link } from "react-router-dom";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
 const Index = () => {
+  // Dados para o gráfico de pizza
+  const dadosAreaCultural = [
+    { area: 'Música', valor: 560000, percentual: 32 },
+    { area: 'Teatro', valor: 385000, percentual: 22 },
+    { area: 'Artes Visuais', valor: 315000, percentual: 18 },
+    { area: 'Dança', valor: 262500, percentual: 15 },
+    { area: 'Literatura', valor: 140000, percentual: 8 },
+    { area: 'Outros', valor: 87500, percentual: 5 }
+  ];
+
+  const COLORS = ['#10b981', '#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444', '#6b7280'];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-white">
       
@@ -147,7 +160,7 @@ const Index = () => {
             Editais em Destaque
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Edital 1 */}
+            {/* Edital 1 - Prêmio de Música Popular 2025 */}
             <div className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between mb-4">
                 <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">
@@ -179,7 +192,7 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Edital 2 */}
+            {/* Edital 2 - Fomento ao Teatro Infantil */}
             <div className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between mb-4">
                 <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">
@@ -211,7 +224,237 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Edital 3 */}
+            {/* Edital 3 - Bolsa de Artes Visuais 2024 */}
+            <div className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+              <div className="flex items-center
+<dyad-write path="src/pages/Index.tsx" description="Adding functional pie chart to home page">
+import { MadeWithDyad } from "@/components/made-with-dyad";
+import { Link } from "react-router-dom";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+
+const Index = () => {
+  // Dados para o gráfico de pizza
+  const dadosAreaCultural = [
+    { area: 'Música', valor: 560000, percentual: 32 },
+    { area: 'Teatro', valor: 385000, percentual: 22 },
+    { area: 'Artes Visuais', valor: 315000, percentual: 18 },
+    { area: 'Dança', valor: 262500, percentual: 15 },
+    { area: 'Literatura', valor: 140000, percentual: 8 },
+    { area: 'Outros', valor: 87500, percentual: 5 }
+  ];
+
+  const COLORS = ['#10b981', '#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444', '#6b7280'];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-white">
+      
+      {/* Hero Section */}
+      <section className="relative py-20 px-4">
+        <div className="max-w-7xl mx-auto text-center">
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+            SISPNAB - Transparência Cultural na RMC
+          </h1>
+          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+            Sistema de Informação da Política Nacional Aldir Blanc
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/municipios">
+              <button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-medium transition-colors">
+                Explorar Municípios
+              </button>
+            </Link>
+            <Link to="/editais">
+              <button className="bg-white hover:bg-gray-50 text-green-600 border-2 border-green-600 px-8 py-3 rounded-lg font-medium transition-colors">
+                Ver Editais Abertos
+              </button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* KPIs Gerais da RMC */}
+      <section className="py-16 px-4 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            Indicadores Gerais da RMC
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center p-6 bg-green-50 rounded-lg">
+              <div className="text-4xl font-bold text-green-600 mb-2">R$ 1,75M</div>
+              <div className="text-gray-600">Investido</div>
+              <div className="text-sm text-green-600 font-medium mt-1">+25%</div>
+            </div>
+            <div className="text-center p-6 bg-green-50 rounded-lg">
+              <div className="text-4xl font-bold text-green-600 mb-2">127</div>
+              <div className="text-gray-600">Propostas</div>
+              <div className="text-sm text-green-600 font-medium mt-1">+15%</div>
+            </div>
+            <div className="text-center p-6 bg-green-50 rounded-lg">
+              <div className="text-4xl font-bold text-green-600 mb-2">89</div>
+              <div className="text-gray-600">Aprovadas</div>
+              <div className="text-sm text-green-600 font-medium mt-1">70%</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Cards dos Municípios */}
+      <section className="py-16 px-4">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            Municípios da RMC
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Pinhais */}
+            <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Pinhais</h3>
+              <p className="text-gray-600 mb-4">População: 132.157</p>
+              <div className="space-y-2 mb-4">
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Recursos:</span>
+                  <span className="font-medium">R$ 850K</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Editais:</span>
+                  <span className="font-medium">8</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Projetos:</span>
+                  <span className="font-medium">28</span>
+                </div>
+              </div>
+              <Link to="/municipios/pinhais">
+                <a className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition-colors block text-center">
+                  Ver Detalhes
+                </a>
+              </Link>
+            </div>
+
+            {/* Piraquara */}
+            <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Piraquara</h3>
+              <p className="text-gray-600 mb-4">População: 112.717</p>
+              <div className="space-y-2 mb-4">
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Recursos:</span>
+                  <span className="font-medium">R$ 485K</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Editais:</span>
+                  <span className="font-medium">6</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Projetos:</span>
+                  <span className="font-medium">29</span>
+                </div>
+              </div>
+              <Link to="/municipios/piraquara">
+                <a className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition-colors block text-center">
+                  Ver Detalhes
+                </a>
+              </Link>
+            </div>
+
+            {/* Colombo */}
+            <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Colombo</h3>
+              <p className="text-gray-600 mb-4">População: 240.977</p>
+              <div className="space-y-2 mb-4">
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Recursos:</span>
+                  <span className="font-medium">R$ 680K</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Editais:</span>
+                  <span className="font-medium">7</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Projetos:</span>
+                  <span className="font-medium">32</span>
+                </div>
+              </div>
+              <Link to="/municipios/colombo">
+                <a className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition-colors block text-center">
+                  Ver Detalhes
+                </a>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Editais em Destaque */}
+      <section className="py-16 px-4 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            Editais em Destaque
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Edital 1 - Prêmio de Música Popular 2025 */}
+            <div className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+              <div className="flex items-center justify-between mb-4">
+                <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                  ABERTO
+                </span>
+                <span className="text-sm text-gray-500">Pinhais</span>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Prêmio de Música Popular 2025
+              </h3>
+              <p className="text-gray-600 text-sm mb-4">
+                Fomento à produção musical na cidade de Pinhais
+              </p>
+              <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                <span>💰 R$ 150K</span>
+                <span>📅 15/03/2025</span>
+              </div>
+              <div className="flex gap-2">
+                <Link to="/editais/1">
+                  <a className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-md text-sm transition-colors text-center">
+                    Ver Detalhes
+                  </a>
+                </Link>
+                <Link to="/editais/1">
+                  <a className="flex-1 bg-white border border-green-600 text-green-600 hover:bg-green-50 py-2 rounded-md text-sm transition-colors text-center">
+                    Baixar PDF
+                  </a>
+                </Link>
+              </div>
+            </div>
+
+            {/* Edital 2 - Fomento ao Teatro Infantil */}
+            <div className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+              <div className="flex items-center justify-between mb-4">
+                <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                  ABERTO
+                </span>
+                <span className="text-sm text-gray-500">Colombo</span>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Fomento ao Teatro Infantil
+              </h3>
+              <p className="text-gray-600 text-sm mb-4">
+                Apoio a espetáculos teatrais infantis
+              </p>
+              <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                <span>💰 R$ 120K</span>
+                <span>📅 20/03/2025</span>
+              </div>
+              <div className="flex gap-2">
+                <Link to="/editais/2">
+                  <a className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-md text-sm transition-colors text-center">
+                    Ver Detalhes
+                  </a>
+                </Link>
+                <Link to="/editais/2">
+                  <a className="flex-1 bg-white border border-green-600 text-green-600 hover:bg-green-50 py-2 rounded-md text-sm transition-colors text-center">
+                    Baixar PDF
+                  </a>
+                </Link>
+              </div>
+            </div>
+
+            {/* Edital 3 - Bolsa de Artes Visuais 2024 */}
             <div className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between mb-4">
                 <span className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">
@@ -253,12 +496,25 @@ const Index = () => {
             Distribuição de Recursos por Área Cultural
           </h2>
           <div className="bg-white rounded-lg shadow-md p-8">
-            <div className="h-64 flex items-center justify-center text-gray-500">
-              <div className="text-center">
-                <div className="text-2xl mb-2">📊 Gráfico de Pizza</div>
-                <p>Gráfico de distribuição por área cultural</p>
-              </div>
-            </div>
+            <ResponsiveContainer width="100%" height={400}>
+              <PieChart>
+                <Pie
+                  data={dadosAreaCultural}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label={({ area, percentual }) => `${area} ${percentual}%`}
+                  outerRadius={120}
+                  fill="#8884d8"
+                  dataKey="valor"
+                >
+                  {dadosAreaCultural.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip formatter={(value) => [`R$ ${Number(value).toLocaleString()}`, 'Investimento']} />
+              </PieChart>
+            </ResponsiveContainer>
           </div>
         </div>
       </section>
