@@ -1,10 +1,8 @@
 import { MadeWithDyad } from "@/components/made-with-dyad";
-import Navbar from "@/components/layout/Navbar";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-white">
-      <Navbar />
       
       {/* Hero Section */}
       <section className="relative py-20 px-4">
