@@ -34,6 +34,9 @@ import ProponenteMeusProjetos from "./pages/ProponenteMeusProjetos";
 import ProponenteEditais from "./pages/ProponenteEditais";
 import ProponenteNotificacoes from "./pages/ProponenteNotificacoes";
 import AuthTestPage from "./pages/AuthTest";
+import ProponenteDashboard from "./pages/ProponenteDashboard";
+import AnalistaDashboard from "./pages/AnalistaDashboard";
+import AdminDashboard from "./pages/AdminDashboard";
 
 const queryClient = new QueryClient();
 
@@ -84,7 +87,7 @@ const AppContent = () => {
         <Route path="/admin/relatorios" element={<AdminRelatorios />} />
         
         {/* Rotas específicas do proponente */}
-        <Route path="/proponente/dashboard" element={<DashboardProponente />} />
+        <Route path="/proponente/dashboard" element={<ProponenteDashboard />} />
         <Route path="/proponente/meus-projetos" element={<ProponenteMeusProjetos />} />
         <Route path="/proponente/novos-editais" element={<ProponenteEditais />} />
         <Route path="/proponente/notificacoes" element={<ProponenteNotificacoes />} />
