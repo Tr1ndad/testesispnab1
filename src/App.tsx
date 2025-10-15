@@ -27,8 +27,6 @@ import NovoProjeto from "./pages/NovoProjeto";
 import ProponenteMeusProjetos from "./pages/ProponenteMeusProjetos";
 import ProponenteEditais from "./pages/ProponenteEditais";
 import ProponenteNotificacoes from "./pages/ProponenteNotificacoes";
-import ProponenteEditarEdital from "./pages/ProponenteEditarEdital";
-import ProponenteEditalDetalhes from "./pages/ProponenteEditalDetalhes";
 import AuthTestPage from "./pages/AuthTest";
 
 const queryClient = new QueryClient();
@@ -70,13 +68,12 @@ const AppContent = () => {
         <Route path="/dashboard/admin" element={<DashboardAdmin />} />
         
         {/* Rotas específicas do proponente */}
+        <Route path="/proponente/dashboard" element={<DashboardProponente />} />
         <Route path="/proponente/meus-projetos" element={<ProponenteMeusProjetos />} />
-        <Route path="/proponente/editais" element={<ProponenteEditais />} />
+        <Route path="/proponente/novos-editais" element={<ProponenteEditais />} />
         <Route path="/proponente/notificacoes" element={<ProponenteNotificacoes />} />
         <Route path="/proponente/projetos/:id" element={<ProjetoDetalhe />} />
         <Route path="/proponente/editais/:id" element={<EditalDetalhe />} />
-        <Route path="/proponente/editar-edital/:id" element={<ProponenteEditarEdital />} />
-        <Route path="/proponente/edital-detalhes/:id" element={<ProponenteEditalDetalhes />} />
         
         <Route path="/novo-projeto" element={<NovoProjeto />} />
         <Route path="/auth-test" element={<AuthTestPage />} />
