@@ -1,4 +1,4 @@
-import { useAuth } from "@/hooks/useAuthMock";
+import { useAuth } from "@/contexts/AuthContext";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -55,7 +55,7 @@ export function AuthTest() {
           <div>
             <strong>Permissões:</strong>
             <div className="mt-2 flex flex-wrap gap-2">
-              {user?.permissions.map((permission) => (
+              {user?.permissions.map((permission: string) => (
                 <span
                   key={permission}
                   className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded"

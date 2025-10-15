@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { useState, useEffect } from 'react';
 
 interface User {
   id: string;
@@ -9,15 +9,13 @@ interface User {
   permissions: string[];
 }
 
-interface AuthContextType {
+interface AuthReturn {
   user: User | null;
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
   isAuthenticated: boolean;
   hasPermission: (permission: string) => boolean;
 }
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 // Usuários de teste em memória
 const TEST_USERS: User[] = [
@@ -155,7 +153,7 @@ const TEST_CREDENTIALS = {
   'ana.costa.artista@email.com': 'senha123'
 };
 
-export function AuthProvider({ children }: { children: ReactNode }) {
+export const useAuthMock = (): AuthReturn => {
   const [user, setUser] = useState<User | null>(null);
 
   const login = async (email: string, password: string): Promise<boolean> => {
@@ -188,7 +186,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   // Restaurar sessão do localStorage ao carregar
-  useState(() => {
+  useEffect(() => {
     const savedUser = localStorage.getItem('mockUser');
     if (savedUser) {
       try {
@@ -198,37 +196,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         localStorage.removeItem('mockUser');
       }
     }
-  });
+  }, []);
 
-  return (
-    <AuthContext.Provider value={{
-      user,
-      login,
-      logout,
-      isAuthenticated,
-      hasPermission
-    }}>
-      {children}
-    </AuthContext.Provider>
-  );
-}
-
-export function useAuth() {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-}
-
-// Hook para proteger rotas
-export function useProtectedRoute() {
-  const { isAuthenticated, user } = useAuth();
-  
-  if (!isAuthenticated) {
-    // Em um app real, redirecionaria para login
-    return { isAuthenticated: false, user: null };
-  }
-  
-  return { isAuthenticated: true, user };
-}
+  return {
+    user,
+    login,
+    logout,
+    isAuthenticated,
+    hasPermission
+  };
+};
