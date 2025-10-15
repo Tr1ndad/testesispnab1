@@ -23,6 +23,9 @@ import Contato from "./pages/Contato";
 import EditalDetalhe from "./pages/EditalDetalhe";
 import ProjetoDetalhe from "./pages/ProjetoDetalhe";
 import NovoProjeto from "./pages/NovoProjeto";
+import ProponenteMeusProjetos from "./pages/ProponenteMeusProjetos";
+import ProponenteEditais from "./pages/ProponenteEditais";
+import ProponenteNotificacoes from "./pages/ProponenteNotificacoes";
 import AuthTestPage from "./pages/AuthTest";
 
 const queryClient = new QueryClient();
@@ -57,11 +60,22 @@ const AppContent = () => {
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/contato" element={<Contato />} />
+        
+        {/* Rotas de Dashboard */}
         <Route path="/dashboard/proponente" element={<DashboardProponente />} />
         <Route path="/dashboard/gestor" element={<DashboardGestor />} />
         <Route path="/dashboard/analista" element={<DashboardAnalista />} />
+        
+        {/* Rotas específicas do proponente */}
+        <Route path="/proponente/meus-projetos" element={<ProponenteMeusProjetos />} />
+        <Route path="/proponente/editais" element={<ProponenteEditais />} />
+        <Route path="/proponente/notificacoes" element={<ProponenteNotificacoes />} />
+        <Route path="/proponente/projetos/:id" element={<ProjetoDetalhe />} />
+        <Route path="/proponente/editais/:id" element={<EditalDetalhe />} />
+        
         <Route path="/novo-projeto" element={<NovoProjeto />} />
         <Route path="/auth-test" element={<AuthTestPage />} />
+        
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>

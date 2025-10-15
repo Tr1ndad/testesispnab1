@@ -79,7 +79,7 @@ const DashboardProponente = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header com barra de navegação */}
+      {/* Header com barra de navegação do proponente movida para o topo */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -88,27 +88,43 @@ const DashboardProponente = () => {
               <nav className="ml-10 flex space-x-8">
                 <button 
                   onClick={() => navigate('/dashboard/proponente')}
-                  className="text-blue-700 border-b-2 border-blue-700 px-1 pt-1 text-sm font-medium"
+                  className={`px-1 pt-1 text-sm font-medium ${
+                    activeTab === "visao-geral" 
+                      ? 'text-blue-700 border-b-2 border-blue-700' 
+                      : 'text-gray-500 hover:text-gray-700'
+                  }`}
                 >
-                  Dashboard
+                  Visão Geral
                 </button>
                 <button 
-                  onClick={() => navigate('/projetos')}
-                  className="text-gray-500 hover:text-gray-700 px-1 pt-1 text-sm font-medium"
+                  onClick={() => navigate('/proponente/meus-projetos')}
+                  className={`px-1 pt-1 text-sm font-medium ${
+                    activeTab === "meus-projetos" 
+                      ? 'text-blue-700 border-b-2 border-blue-700' 
+                      : 'text-gray-500 hover:text-gray-700'
+                  }`}
                 >
                   Meus Projetos
                 </button>
                 <button 
-                  onClick={() => navigate('/novo-projeto')}
-                  className="text-gray-500 hover:text-gray-700 px-1 pt-1 text-sm font-medium"
+                  onClick={() => navigate('/proponente/editais')}
+                  className={`px-1 pt-1 text-sm font-medium ${
+                    activeTab === "editais" 
+                      ? 'text-blue-700 border-b-2 border-blue-700' 
+                      : 'text-gray-500 hover:text-gray-700'
+                  }`}
                 >
-                  Novo Projeto
+                  Novos Editais
                 </button>
                 <button 
-                  onClick={() => navigate('/editais')}
-                  className="text-gray-500 hover:text-gray-700 px-1 pt-1 text-sm font-medium"
+                  onClick={() => navigate('/proponente/notificacoes')}
+                  className={`px-1 pt-1 text-sm font-medium ${
+                    activeTab === "notificacoes" 
+                      ? 'text-blue-700 border-b-2 border-blue-700' 
+                      : 'text-gray-500 hover:text-gray-700'
+                  }`}
                 >
-                  Editais
+                  Notificações
                 </button>
               </nav>
             </div>
@@ -198,7 +214,7 @@ const DashboardProponente = () => {
             </Card>
           </div>
 
-          {/* Conteúdo principal sem abas duplicadas */}
+          {/* Conteúdo principal */}
           <div className="space-y-6">
             {/* Recent Activity */}
             <Card>
@@ -260,7 +276,7 @@ const DashboardProponente = () => {
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-xs text-gray-500">📅 Encerra: {edital.data_encerramento}</span>
-                        <Button size="sm" onClick={() => navigate(`/editais/${edital.id}`)}>
+                        <Button size="sm" onClick={() => navigate(`/proponente/editais/${edital.id}`)}>
                           Ver Detalhes
                         </Button>
                       </div>
@@ -315,7 +331,7 @@ const DashboardProponente = () => {
                               Editar
                             </Button>
                           )}
-                          <Button size="sm" onClick={() => navigate(`/projetos/${projeto.id}`)}>
+                          <Button size="sm" onClick={() => navigate(`/proponente/projetos/${projeto.id}`)}>
                             {projeto.status === "rascunho" ? "Submeter" : "Ver Detalhes"}
                           </Button>
                         </div>
