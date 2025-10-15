@@ -121,6 +121,7 @@ export const useAuthMock = (): AuthReturn => {
         setUser(foundUser);
         localStorage.setItem('mockUser', JSON.stringify(foundUser));
         console.log('Login bem-sucedido para:', email);
+        console.log('Role salvo:', foundUser.role);
         console.log('=== FIM DA FUNÇÃO LOGIN NO useAuthMock ===');
         return true;
       }
@@ -153,6 +154,7 @@ export const useAuthMock = (): AuthReturn => {
         const parsedUser = JSON.parse(savedUser);
         setUser(parsedUser);
         console.log('Usuário restaurado do localStorage:', parsedUser.email);
+        console.log('Role restaurado:', parsedUser.role);
       } catch (error) {
         console.error('Error parsing saved user:', error);
         localStorage.removeItem('mockUser');

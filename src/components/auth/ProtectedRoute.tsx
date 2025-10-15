@@ -3,32 +3,31 @@ import { useAuth } from '@/contexts/AuthContext';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  requiredPermission?: string;
+  requiredRole?: string;
   redirectTo?: string;
 }
 
 export function ProtectedRoute({ 
   children, 
-  requiredPermission, 
+  requiredRole, 
   redirectTo = '/login' 
 }: ProtectedRouteProps) {
-  const { isAuthenticated, hasPermission } = useAuth();
-
-  if (!isAuthenticated) {
+  const { user } = useAuth();
+  
+  console.log('ProtectedRoute - User:', user);
+  console.log('ProtectedRoute - Required Role:', requiredRole);
+  console.log('ProtectedRoute - User Role:', user?.role);
+  
+  if (!user) {
+    console.log('Sem user, redirecionando para login');
     return <Navigate to={redirectTo} replace />;
   }
-
-  if (requiredPermission && !hasPermission(requiredPermission)) {
-    // Em um app real, redirecionaria para uma página de "não autorizado"
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Acesso Negado</h1>
-          <p className="text-gray-600">Você não tem permissão para acessar esta página.</p>
-        </div>
-      </div>
-    );
+  
+  if (requiredRole && user.role !== requiredRole) {
+    console.log(`Role mismatch: ${user.role} !== ${requiredRole}, redirecionando para /dashboard/${user.role}`);
+    return <Navigate to={`/dashboard/${user.role}`} replace />;
   }
-
+  
+  console.log('ProtectedRoute - Permitindo acesso');
   return <>{children}</>;
 }

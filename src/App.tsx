@@ -31,17 +31,8 @@ import AdminDashboard from './pages/AdminDashboard';
 import AnalistaDashboard from './pages/DashboardAnalista';
 import AnalistaNotificacoes from './pages/AnalistaNotificacoes';
 import LoginTest from './pages/LoginTest';
-
-// Componente de proteção de rota - APENAS para rotas que precisam de autenticação
-const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated } = useAuth();
-  
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
-  
-  return children;
-};
+import RedirectionTest from './pages/RedirectionTest';
+import { ProtectedRoute } from './components/auth/ProtectedRoute';
 
 function App() {
   return (
@@ -54,6 +45,7 @@ function App() {
           <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/auth-test" element={<AuthTest />} />
           <Route path="/login-test" element={<LoginTest />} />
+          <Route path="/redirection-test" element={<RedirectionTest />} />
           <Route path="/index" element={<Index />} />
           <Route path="/municipios" element={<Municipios />} />
           <Route path="/editais" element={<Editais />} />
@@ -65,11 +57,11 @@ function App() {
           <Route path="/editais/:id" element={<EditalDetalhe />} />
           <Route path="/projetos/:id" element={<ProjetoDetalhe />} />
           
-          {/* Rotas PROTEGIDAS - COM VERIFICAÇÃO DE AUTENTICAÇÃO VIA ProtectedRoute */}
+          {/* Rotas PROTEGIDAS - COM VERIFICAÇÃO DE AUTENTICAÇÃO E ROLE */}
           <Route 
             path="/dashboard/proponente" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute requiredRole="proponente">
                 <DashboardProponente />
               </ProtectedRoute>
             } 
@@ -77,7 +69,7 @@ function App() {
           <Route 
             path="/dashboard/admin" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute requiredRole="admin">
                 <DashboardAdmin />
               </ProtectedRoute>
             } 
@@ -85,7 +77,7 @@ function App() {
           <Route 
             path="/dashboard/analista" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute requiredRole="analista">
                 <DashboardAnalista />
               </ProtectedRoute>
             } 
@@ -95,7 +87,7 @@ function App() {
           <Route 
             path="/proponente/meus-projetos" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute requiredRole="proponente">
                 <ProponenteMeusProjetos />
               </ProtectedRoute>
             } 
@@ -103,7 +95,7 @@ function App() {
           <Route 
             path="/proponente/novos-editais" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute requiredRole="proponente">
                 <ProponenteEditais />
               </ProtectedRoute>
             } 
@@ -111,7 +103,7 @@ function App() {
           <Route 
             path="/proponente/notificacoes" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute requiredRole="proponente">
                 <ProponenteNotificacoes />
               </ProtectedRoute>
             } 
@@ -119,7 +111,7 @@ function App() {
           <Route 
             path="/proponente/edital-detalhes/:id" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute requiredRole="proponente">
                 <ProponenteEditalDetalhes />
               </ProtectedRoute>
             } 
@@ -127,7 +119,7 @@ function App() {
           <Route 
             path="/proponente/editar-edital/:id" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute requiredRole="proponente">
                 <ProponenteEditarEdital />
               </ProtectedRoute>
             } 
@@ -137,7 +129,7 @@ function App() {
           <Route 
             path="/admin/usuarios" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute requiredRole="admin">
                 <AdminUsuarios />
               </ProtectedRoute>
             } 
@@ -145,7 +137,7 @@ function App() {
           <Route 
             path="/admin/relatorios" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute requiredRole="admin">
                 <AdminRelatorios />
               </ProtectedRoute>
             } 
@@ -153,7 +145,7 @@ function App() {
           <Route 
             path="/admin/configuracoes" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute requiredRole="admin">
                 <AdminConfiguracoes />
               </ProtectedRoute>
             } 
@@ -163,7 +155,7 @@ function App() {
           <Route 
             path="/analista/analises" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute requiredRole="analista">
                 <AnalistaAnalises />
               </ProtectedRoute>
             } 
@@ -171,7 +163,7 @@ function App() {
           <Route 
             path="/analista/relatorios" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute requiredRole="analista">
                 <AnalistaRelatorios />
               </ProtectedRoute>
             } 
@@ -179,7 +171,7 @@ function App() {
           <Route 
             path="/analista/notificacoes" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute requiredRole="analista">
                 <AnalistaNotificacoes />
               </ProtectedRoute>
             } 
@@ -189,13 +181,13 @@ function App() {
           <Route 
             path="/novo-projeto" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute requiredRole="proponente">
                 <NovoProjeto />
               </ProtectedRoute>
             } 
           />
           
-          {/* Rota não encontrada - redireciona para login se não autenticado */}
+          {/* Rota não encontrada - redireciona para dashboard do usuário logado */}
           <Route path="*" element={
             <ProtectedRoute>
               <Navigate to="/dashboard/proponente" />
