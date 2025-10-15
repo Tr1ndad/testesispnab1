@@ -15,8 +15,11 @@ import DashboardGestor from "./pages/DashboardGestor";
 import DashboardAnalista from "./pages/DashboardAnalista";
 import DashboardAdmin from "./pages/DashboardAdmin";
 import AnalistaAnalises from "./pages/AnalistaAnalises";
+import AnalistaNotificacoes from "./pages/AnalistaNotificacoes";
+import AnalistaRelatorios from "./pages/AnalistaRelatorios";
 import AdminUsuarios from "./pages/AdminUsuarios";
 import AdminConfiguracoes from "./pages/AdminConfiguracoes";
+import AdminRelatorios from "./pages/AdminRelatorios";
 import NotFound from "./pages/NotFound";
 import Editais from "./pages/Editais";
 import Projetos from "./pages/Projetos";
@@ -72,10 +75,13 @@ const AppContent = () => {
         
         {/* Rotas específicas do analista */}
         <Route path="/analista/analises" element={<AnalistaAnalises />} />
+        <Route path="/analista/notificacoes" element={<AnalistaNotificacoes />} />
+        <Route path="/analista/relatorios" element={<AnalistaRelatorios />} />
         
         {/* Rotas específicas do admin */}
         <Route path="/admin/usuarios" element={<AdminUsuarios />} />
         <Route path="/admin/configuracoes" element={<AdminConfiguracoes />} />
+        <Route path="/admin/relatorios" element={<AdminRelatorios />} />
         
         {/* Rotas específicas do proponente */}
         <Route path="/proponente/dashboard" element={<DashboardProponente />} />
