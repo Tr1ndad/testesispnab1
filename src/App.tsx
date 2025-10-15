@@ -65,7 +65,7 @@ const AppContent = () => {
 
 const App = () => {
   return (
-    <QueryClientProvider client={queryclient}>
+    <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <AuthProvider>
           <Toaster />
