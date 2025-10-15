@@ -7,6 +7,10 @@ export default defineConfig(() => ({
     host: "::",
     port: 8080,
   },
+  define: {
+    'process.env': {},
+  },
+
   plugins: [react()],
   resolve: {
     alias: {
