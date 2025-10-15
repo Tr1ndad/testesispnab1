@@ -21,8 +21,23 @@ interface AuthReturn {
 const TEST_USERS: User[] = [
   {
     id: '1',
+    name: 'Proponente do Sistema',
+    email: 'proponente@app:sispnab.gov.br',
+    role: 'proponente',
+    permissions: [
+      'dashboard',
+      'editais',
+      'projetos',
+      'indicadores',
+      'sobre',
+      'faq',
+      'contato'
+    ]
+  },
+  {
+    id: '2',
     name: 'Administrador do Sistema',
-    email: 'admin@sispnab.gov.br',
+    email: 'admin@app:sispnab.gov.br',
     role: 'admin',
     permissions: [
       'dashboard',
@@ -40,24 +55,9 @@ const TEST_USERS: User[] = [
     ]
   },
   {
-    id: '2',
-    name: 'João Almeida',
-    email: 'joao.almeida@email.com',
-    role: 'proponente',
-    permissions: [
-      'dashboard',
-      'editais',
-      'projetos',
-      'indicadores',
-      'sobre',
-      'faq',
-      'contato'
-    ]
-  },
-  {
     id: '3',
-    name: 'Maria Fernandes',
-    email: 'analista@sispnab.gov.br',
+    name: 'Analista do Sistema',
+    email: 'analista@app:sispnab.gov.br',
     role: 'analista',
     permissions: [
       'dashboard',
@@ -73,7 +73,7 @@ const TEST_USERS: User[] = [
   },
   {
     id: '4',
-    name: 'Ana Costa',
+    name: 'Artista do Sistema',
     email: 'ana.costa.artista@email.com',
     role: 'artista',
     permissions: [
@@ -90,9 +90,9 @@ const TEST_USERS: User[] = [
 
 // Credenciais de teste
 const TEST_CREDENTIALS = {
-  'admin@sispnab.gov.br': 'admin123',
-  'joao.almeida@email.com': 'senha123',
-  'analista@sispnab.gov.br': 'senha123',
+  'proponente@app:sispnab.gov.br': 'senha123',
+  'admin@app:sispnab.gov.br': 'admin123',
+  'analista@app:sispnab.gov.br': 'senha123',
   'ana.costa.artista@email.com': 'senha123'
 };
 
@@ -100,22 +100,34 @@ export const useAuthMock = (): AuthReturn => {
   const [user, setUser] = useState<User | null>(null);
 
   const login = async (email: string, password: string): Promise<boolean> => {
+    console.log('=== INÍCIO DA FUNÇÃO LOGIN NO useAuthMock ===');
+    console.log('Email recebido:', email);
+    console.log('Senha recebida:', password);
+    console.log('Credenciais disponíveis:', Object.keys(TEST_CREDENTIALS));
+
     // Simular delay de rede
     await new Promise(resolve => setTimeout(resolve, 500));
 
     const validPassword = TEST_CREDENTIALS[email as keyof typeof TEST_CREDENTIALS];
     
+    console.log('Senha válida para este email:', validPassword);
+    console.log('Senhas coincidem?', validPassword === password);
+    
     if (validPassword && validPassword === password) {
       const foundUser = TEST_USERS.find(u => u.email === email);
+      console.log('Usuário encontrado:', foundUser);
+      
       if (foundUser) {
         setUser(foundUser);
         localStorage.setItem('mockUser', JSON.stringify(foundUser));
         console.log('Login bem-sucedido para:', email);
+        console.log('=== FIM DA FUNÇÃO LOGIN NO useAuthMock ===');
         return true;
       }
     }
     
     console.log('Login falhou para:', email);
+    console.log('=== FIM DA FUNÇÃO LOGIN NO useAuthMock ===');
     return false;
   };
 

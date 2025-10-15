@@ -15,25 +15,46 @@ const Login = () => {
     setError('');
     setIsLoading(true);
 
+    // Logs de depuração
+    console.log('=== INÍCIO DO LOGIN ===');
+    console.log('Email digitado:', email);
+    console.log('Senha digitada:', password);
+    console.log('Função login disponível:', typeof login);
+    console.log('Função navigate disponível:', typeof navigate);
+
     try {
-      // Simulação de login - em um app real, isso seria uma chamada à API
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Simulação de diferentes usuários com base no email
-      let role = 'proponente';
-      if (email.includes('admin')) {
-        role = 'admin';
-      } else if (email.includes('analista')) {
-        role = 'analista';
+      // Verificar se a função login existe
+      if (typeof login !== 'function') {
+        throw new Error('A função login não está disponível no contexto');
       }
 
-      // Login simulado
-      login({ email, role });
+      // Credenciais de teste
+      let loginResult = false;
       
-      // Redirecionar para o dashboard do respectivo papel
-      navigate(`/dashboard/${role}`);
+      if (email === "proponente@app:sispnab.gov.br" && password === "senha123") {
+        console.log('Credenciais de proponente corretas!');
+        loginResult = await login(email, password);
+        console.log('Resultado do login:', loginResult);
+        navigate('/dashboard/proponente');
+      } else if (email === "admin@app:sispnab.gov.br" && password === "admin123") {
+        console.log('Credenciais de admin corretas!');
+        loginResult = await login(email, password);
+        console.log('Resultado do login:', loginResult);
+        navigate('/dashboard/admin');
+      } else if (email === "analista@app:sispnab.gov.br" && password === "senha123") {
+        console.log('Credenciais de analista corretas!');
+        loginResult = await login(email, password);
+        console.log('Resultado do login:', loginResult);
+        navigate('/dashboard/analista');
+      } else {
+        console.log('Credenciais inválidas');
+        setError("Email ou senha incorretos");
+      }
+
+      console.log('=== FIM DO LOGIN ===');
     } catch (err) {
-      setError('Credenciais inválidas. Tente novamente.');
+      console.error('Erro durante o login:', err);
+      setError(`Erro durante o login: ${err.message}`);
     } finally {
       setIsLoading(false);
     }
@@ -107,7 +128,9 @@ const Login = () => {
               Dicas de login:
             </p>
             <p className="text-xs text-gray-500 mt-1">
-              Proponente: proponente@exemplo.com | Admin: admin@exemplo.com | Analista: analista@exemplo.com
+              Proponente: proponente@app:sispnab.gov.br / senha123<br/>
+              Admin: admin@app:sispnab.gov.br / admin123<br/>
+              Analista: analista@app:sispnab.gov.br / senha123
             </p>
           </div>
         </form>

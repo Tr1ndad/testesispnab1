@@ -30,6 +30,7 @@ import AdminConfiguracoes from './pages/AdminConfiguracoes';
 import AdminDashboard from './pages/AdminDashboard';
 import AnalistaDashboard from './pages/DashboardAnalista';
 import AnalistaNotificacoes from './pages/AnalistaNotificacoes';
+import LoginTest from './pages/LoginTest';
 
 // Componente de proteção de rota - APENAS para rotas que precisam de autenticação
 const ProtectedRoute = ({ children }) => {
@@ -52,6 +53,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/auth-test" element={<AuthTest />} />
+          <Route path="/login-test" element={<LoginTest />} />
           <Route path="/index" element={<Index />} />
           <Route path="/municipios" element={<Municipios />} />
           <Route path="/editais" element={<Editais />} />
