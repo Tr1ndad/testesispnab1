@@ -22,6 +22,7 @@ import FAQ from "./pages/FAQ";
 import Contato from "./pages/Contato";
 import EditalDetalhe from "./pages/EditalDetalhe";
 import ProjetoDetalhe from "./pages/ProjetoDetalhe";
+import NovoProjeto from "./pages/NovoProjeto";
 import AuthTestPage from "./pages/AuthTest";
 
 const queryClient = new QueryClient();
@@ -59,6 +60,7 @@ const AppContent = () => {
         <Route path="/dashboard/proponente" element={<DashboardProponente />} />
         <Route path="/dashboard/gestor" element={<DashboardGestor />} />
         <Route path="/dashboard/analista" element={<DashboardAnalista />} />
+        <Route path="/novo-projeto" element={<NovoProjeto />} />
         <Route path="/auth-test" element={<AuthTestPage />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />

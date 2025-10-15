@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const DashboardProponente = () => {
   const navigate = useNavigate();
@@ -80,25 +79,37 @@ const DashboardProponente = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
+      {/* Header com barra de navegação */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <h1 className="text-xl font-semibold text-gray-900">SISPNAB</h1>
               <nav className="ml-10 flex space-x-8">
-                <a href="#" className="text-blue-400 border-b-2 border-blue-400 px-1 pt-1 text-sm font-medium">
+                <button 
+                  onClick={() => navigate('/dashboard/proponente')}
+                  className="text-blue-700 border-b-2 border-blue-700 px-1 pt-1 text-sm font-medium"
+                >
                   Dashboard
-                </a>
-                <a href="#" className="text-gray-500 hover:text-gray-700 px-1 pt-1 text-sm font-medium">
+                </button>
+                <button 
+                  onClick={() => navigate('/projetos')}
+                  className="text-gray-500 hover:text-gray-700 px-1 pt-1 text-sm font-medium"
+                >
                   Meus Projetos
-                </a>
-                <a href="#" className="text-gray-500 hover:text-gray-700 px-1 pt-1 text-sm font-medium">
+                </button>
+                <button 
+                  onClick={() => navigate('/novo-projeto')}
+                  className="text-gray-500 hover:text-gray-700 px-1 pt-1 text-sm font-medium"
+                >
                   Novo Projeto
-                </a>
-                <a href="#" className="text-gray-500 hover:text-gray-700 px-1 pt-1 text-sm font-medium">
+                </button>
+                <button 
+                  onClick={() => navigate('/editais')}
+                  className="text-gray-500 hover:text-gray-700 px-1 pt-1 text-sm font-medium"
+                >
                   Editais
-                </a>
+                </button>
               </nav>
             </div>
             <div className="flex items-center space-x-4">
@@ -187,273 +198,134 @@ const DashboardProponente = () => {
             </Card>
           </div>
 
-          {/* Tabs */}
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-            <TabsList className="grid w-full grid-cols-4">
-              <TabsTrigger value="visao-geral">Visão Geral</TabsTrigger>
-              <TabsTrigger value="meus-projetos">Meus Projetos</TabsTrigger>
-              <TabsTrigger value="novos-editais">Novos Editais</TabsTrigger>
-              <TabsTrigger value="notificacoes">Notificações</TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="visao-geral" className="space-y-6">
-              {/* Recent Activity */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Últimas Atividades</CardTitle>
-                  <CardDescription>Seu histórico recente no sistema</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="flex items-center space-x-4">
-                      <div className="flex-shrink-0">
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900">Projeto "Álbum Sons de Pinhais" submetido</p>
-                        <p className="text-sm text-gray-500">Há 2 dias • Edital: 001/2025-PINHAIS</p>
-                      </div>
+          {/* Conteúdo principal sem abas duplicadas */}
+          <div className="space-y-6">
+            {/* Recent Activity */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Últimas Atividades</CardTitle>
+                <CardDescription>Seu histórico recente no sistema</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-4">
+                    <div className="flex-shrink-0">
+                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                     </div>
-                    <div className="flex items-center space-x-4">
-                      <div className="flex-shrink-0">
-                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900">Projeto "Espetáculo Memórias" aprovado!</p>
-                        <p className="text-sm text-gray-500">Há 5 dias • Valor: R$ 32.000</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-4">
-                      <div className="flex-shrink-0">
-                        <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900">Novo edital disponível: "Fomento ao Teatro"</p>
-                        <p className="text-sm text-gray-500">Há 1 semana • Pinhais</p>
-                      </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-gray-900">Projeto "Álbum Sons de Pinhais" submetido</p>
+                      <p className="text-sm text-gray-500">Há 2 dias • Edital: 001/2025-PINHAIS</p>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-
-              {/* Recommended Editals */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Editais Recomendados</CardTitle>
-                  <CardDescription>Baseado no seu perfil cultural</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {editaisDisponiveis.map((edital) => (
-                      <div key={edital.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                        <div className="flex justify-between items-start mb-2">
-                          <h3 className="font-medium text-gray-900">{edital.titulo}</h3>
-                          <Badge className="bg-green-100 text-green-800">ABERTO</Badge>
-                        </div>
-                        <p className="text-sm text-gray-600 mb-3">📍 {edital.municipio}</p>
-                        <div className="flex justify-between items-center text-sm text-gray-500 mb-3">
-                          <span>💰 R$ {edital.valor_total.toLocaleString()}</span>
-                          <span>👥 {edital.vagas} vagas</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-xs text-gray-500">📅 Encerra: {edital.data_encerramento}</span>
-                          <Button size="sm" onClick={() => navigate(`/editais/${edital.id}`)}>
-                            Ver Detalhes
-                          </Button>
-                        </div>
-                      </div>
-                    ))}
+                  <div className="flex items-center space-x-4">
+                    <div className="flex-shrink-0">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-gray-900">Projeto "Espetáculo Memórias" aprovado!</p>
+                      <p className="text-sm text-gray-500">Há 5 dias • Valor: R$ 32.000</p>
+                    </div>
                   </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
+                  <div className="flex items-center space-x-4">
+                    <div className="flex-shrink-0">
+                      <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-gray-900">Novo edital disponível: "Fomento ao Teatro"</p>
+                      <p className="text-sm text-gray-500">Há 1 semana • Pinhais</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
 
-            <TabsContent value="meus-projetos" className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Meus Projetos</CardTitle>
-                  <CardDescription>Gerencie todos os seus projetos culturais</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {projetos.map((projeto) => (
-                      <div key={projeto.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                        <div className="flex justify-between items-start mb-3">
-                          <div>
-                            <h3 className="font-medium text-gray-900">{projeto.titulo}</h3>
-                            {projeto.edital && (
-                              <p className="text-sm text-gray-600">📋 Edital: {projeto.edital}</p>
-                            )}
-                          </div>
-                          <Badge className={getStatusColor(projeto.status)}>
-                            {getStatusText(projeto.status)}
-                          </Badge>
+            {/* Recommended Editals */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Editais Recomendados</CardTitle>
+                <CardDescription>Baseado no seu perfil cultural</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {editaisDisponiveis.map((edital) => (
+                    <div key={edital.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                      <div className="flex justify-between items-start mb-2">
+                        <h3 className="font-medium text-gray-900">{edital.titulo}</h3>
+                        <Badge className="bg-green-100 text-green-800">ABERTO</Badge>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-3">📍 {edital.municipio}</p>
+                      <div className="flex justify-between items-center text-sm text-gray-500 mb-3">
+                        <span>💰 R$ {edital.valor_total.toLocaleString()}</span>
+                        <span>👥 {edital.vagas} vagas</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-gray-500">📅 Encerra: {edital.data_encerramento}</span>
+                        <Button size="sm" onClick={() => navigate(`/editais/${edital.id}`)}>
+                          Ver Detalhes
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Meus Projetos */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Meus Projetos</CardTitle>
+                <CardDescription>Gerencie todos os seus projetos culturais</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {projetos.map((projeto) => (
+                    <div key={projeto.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                      <div className="flex justify-between items-start mb-3">
+                        <div>
+                          <h3 className="font-medium text-gray-900">{projeto.titulo}</h3>
+                          {projeto.edital && (
+                            <p className="text-sm text-gray-600">📋 Edital: {projeto.edital}</p>
+                          )}
                         </div>
-                        <div className="flex justify-between items-center text-sm">
-                          <div>
-                            {projeto.status === "aprovado" && (
-                              <span className="text-green-600 font-medium">
-                                💰 Aprovado: R$ {projeto.valor_aprovado?.toLocaleString()}
-                              </span>
-                            )}
-                            {projeto.status === "em_analise" && (
-                              <span className="text-yellow-600 font-medium">
-                                💰 Solicitado: R$ {projeto.valor_solicitado?.toLocaleString()}
-                              </span>
-                            )}
-                            {projeto.status === "rascunho" && (
-                              <span className="text-gray-600 font-medium">
-                                💰 Solicitado: R$ {projeto.valor_solicitado?.toLocaleString()}
-                              </span>
-                            )}
-                          </div>
-                          <div className="space-x-2">
-                            {projeto.status === "rascunho" && (
-                              <Button size="sm" variant="outline">
-                                Editar
-                              </Button>
-                            )}
-                            <Button size="sm">
-                              {projeto.status === "rascunho" ? "Submeter" : "Ver Detalhes"}
+                        <Badge className={getStatusColor(projeto.status)}>
+                          {getStatusText(projeto.status)}
+                        </Badge>
+                      </div>
+                      <div className="flex justify-between items-center text-sm">
+                        <div>
+                          {projeto.status === "aprovado" && (
+                            <span className="text-green-600 font-medium">
+                              💰 Aprovado: R$ {projeto.valor_aprovado?.toLocaleString()}
+                            </span>
+                          )}
+                          {projeto.status === "em_analise" && (
+                            <span className="text-yellow-600 font-medium">
+                              💰 Solicitado: R$ {projeto.valor_solicitado?.toLocaleString()}
+                            </span>
+                          )}
+                          {projeto.status === "rascunho" && (
+                            <span className="text-gray-600 font-medium">
+                              💰 Solicitado: R$ {projeto.valor_solicitado?.toLocaleString()}
+                            </span>
+                          )}
+                        </div>
+                        <div className="space-x-2">
+                          {projeto.status === "rascunho" && (
+                            <Button size="sm" variant="outline">
+                              Editar
                             </Button>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="novos-editais" className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Editais Disponíveis</CardTitle>
-                  <CardDescription>Novos editais abertos para inscrição</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {editaisDisponiveis.map((edital) => (
-                      <div key={edital.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                        <div className="flex justify-between items-start mb-3">
-                          <div>
-                            <h3 className="font-medium text-gray-900">{edital.titulo}</h3>
-                            <p className="text-sm text-gray-600">📍 {edital.municipio}</p>
-                          </div>
-                          <Badge className="bg-green-100 text-green-800">ABERTO</Badge>
-                        </div>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4 text-sm">
-                          <div>
-                            <span className="text-gray-600">Valor Total:</span>
-                            <div className="font-medium">R$ {edital.valor_total.toLocaleString()}</div>
-                          </div>
-                          <div>
-                            <span className="text-gray-600">Vagas:</span>
-                            <div className="font-medium">{edital.vagas}</div>
-                          </div>
-                          <div>
-                            <span className="text-gray-600">Área:</span>
-                            <div className="font-medium">Música</div>
-                          </div>
-                          <div>
-                            <span className="text-gray-600">Encerra:</span>
-                            <div className="font-medium">{edital.data_encerramento}</div>
-                          </div>
-                        </div>
-                        <div className="flex gap-2">
-                          <Button size="sm" onClick={() => navigate(`/editais/${edital.id}`)}>
-                            Ver Detalhes
-                          </Button>
-                          <Button size="sm" variant="outline">
-                            Submeter Projeto
+                          )}
+                          <Button size="sm" onClick={() => navigate(`/projetos/${projeto.id}`)}>
+                            {projeto.status === "rascunho" ? "Submeter" : "Ver Detalhes"}
                           </Button>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="notificacoes" className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Notificações</CardTitle>
-                  <CardDescription>Mensagens importantes sobre seus projetos</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                      <div className="flex items-start space-x-3">
-                        <div className="flex-shrink-0">
-                          <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex justify-between items-start">
-                            <div>
-                              <h3 className="font-medium text-gray-900">Seu projeto foi aprovado!</h3>
-                              <p className="text-sm text-gray-600 mt-1">
-                                "Álbum Sons de Pinhais" foi aprovado no valor de R$ 35.000
-                              </p>
-                            </div>
-                            <span className="text-xs text-gray-500">Há 2 dias</span>
-                          </div>
-                          <div className="mt-3 flex space-x-2">
-                            <Button size="sm">Ver Projeto</Button>
-                            <Button size="sm" variant="outline">Baixar Contrato</Button>
-                          </div>
-                        </div>
-                      </div>
                     </div>
-
-                    <div className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                      <div className="flex items-start space-x-3">
-                        <div className="flex-shrink-0">
-                          <div className="w-2 h-2 bg-yellow-500 rounded-full mt-2"></div>
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex justify-between items-start">
-                            <div>
-                              <h3 className="font-medium text-gray-900">Novo edital disponível</h3>
-                              <p className="text-sm text-gray-600 mt-1">
-                                "Fomento ao Teatro e Artes Cênicas" está aberto
-                              </p>
-                            </div>
-                            <span className="text-xs text-gray-500">Há 1 semana</span>
-                          </div>
-                          <div className="mt-3">
-                            <Button size="sm">Ver Edital</Button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="border rounded-lg p-4 hover:shadow-md transition-shadow">
-                      <div className="flex items-start space-x-3">
-                        <div className="flex-shrink-0">
-                          <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex justify-between items-start">
-                            <div>
-                              <h3 className="font-medium text-gray-900">Documento pendente</h3>
-                              <p className="text-sm text-gray-600 mt-1">
-                                Anexe o comprovante de residência no projeto "Festival..."
-                              </p>
-                            </div>
-                            <span className="text-xs text-gray-500">Há 3 dias</span>
-                          </div>
-                          <div className="mt-3">
-                            <Button size="sm">Ir para projeto</Button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </main>
     </div>
