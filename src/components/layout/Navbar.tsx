@@ -22,6 +22,8 @@ const Navbar = () => {
     return location.pathname === path;
   };
 
+  console.log('Navbar renderizado - isOpen:', isOpen);
+
   return (
     <nav className="bg-green-600 shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

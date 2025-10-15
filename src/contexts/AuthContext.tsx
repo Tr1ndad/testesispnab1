@@ -18,6 +18,9 @@ interface AuthProviderProps {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const auth = useAuthMock();
 
+  console.log('AuthProvider renderizado - isAuthenticated:', auth.isAuthenticated);
+  console.log('AuthProvider renderizado - user:', auth.user);
+
   return (
     <AuthContext.Provider value={auth}>
       {children}
@@ -30,12 +33,15 @@ export const useAuth = () => {
   if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
+  console.log('useAuth chamado - isAuthenticated:', context.isAuthenticated);
   return context;
 };
 
 // Hook para proteger rotas
 export const useProtectedRoute = () => {
   const { isAuthenticated, user } = useAuth();
+  
+  console.log('useProtectedRoute - isAuthenticated:', isAuthenticated);
   
   if (!isAuthenticated) {
     // Em um app real, redirecionaria para login

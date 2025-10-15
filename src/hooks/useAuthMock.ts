@@ -167,22 +167,27 @@ export const useAuthMock = (): AuthReturn => {
       if (foundUser) {
         setUser(foundUser);
         localStorage.setItem('mockUser', JSON.stringify(foundUser));
+        console.log('Login bem-sucedido para:', email);
         return true;
       }
     }
     
+    console.log('Login falhou para:', email);
     return false;
   };
 
   const logout = () => {
     setUser(null);
     localStorage.removeItem('mockUser');
+    console.log('Logout realizado');
   };
 
   const isAuthenticated = !!user;
 
   const hasPermission = (permission: string): boolean => {
-    return user?.permissions.includes(permission) || false;
+    const hasPerm = user?.permissions.includes(permission) || false;
+    console.log(`Verificando permissão "${permission}" para usuário ${user?.email}:`, hasPerm);
+    return hasPerm;
   };
 
   // Restaurar sessão do localStorage ao carregar
@@ -190,13 +195,21 @@ export const useAuthMock = (): AuthReturn => {
     const savedUser = localStorage.getItem('mockUser');
     if (savedUser) {
       try {
-        setUser(JSON.parse(savedUser));
+        const parsedUser = JSON.parse(savedUser);
+        setUser(parsedUser);
+        console.log('Usuário restaurado do localStorage:', parsedUser.email);
       } catch (error) {
         console.error('Error parsing saved user:', error);
         localStorage.removeItem('mockUser');
       }
+    } else {
+      console.log('Nenhum usuário salvo no localStorage');
     }
   }, []);
+
+  // Debug: sempre logar o estado atual
+  console.log('useAuthMock - user:', user);
+  console.log('useAuthMock - isAuthenticated:', isAuthenticated);
 
   return {
     user,

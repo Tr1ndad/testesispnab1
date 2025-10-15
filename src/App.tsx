@@ -29,11 +29,15 @@ const queryClient = new QueryClient();
 const AppContent = () => {
   const { isAuthenticated, user } = useAuth();
 
+  // Debug: verificar se o hook está funcionando
+  console.log('AppContent - isAuthenticated:', isAuthenticated);
+  console.log('AppContent - user:', user);
+
   return (
     <>
       {/* 
         LÓGICA CORRETA:
-        - Mostra barra de visitante (Navbar) apenas quando NÃO estiver autenticado
+        - SEMPRE mostra a barra de navegação de visitante (Navbar) quando NÃO estiver autenticado
         - Quando autenticado, a barra específica do dashboard é renderizada dentro do componente
       */}
       {!isAuthenticated && <Navbar />}
