@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { ProjectDetailModal } from "@/components/ProjectDetailModal";
 
 const ProponenteMeusProjetos = () => {
   const navigate = useNavigate();
@@ -15,7 +16,24 @@ const ProponenteMeusProjetos = () => {
       status: "aprovado",
       valor_aprovado: 35000,
       edital: "001/2025-PINHAIS",
-      data_submissao: "15/02/2025"
+      data_submissao: "15/02/2025",
+      descricao: "Produção de um álbum com 10 faixas autorais inspiradas na cultura local de Pinhais",
+      justificativa: "Necessidade de registrar e difundir a música produzida em Pinhais",
+      objetivos: ["Produzir e lançar um álbum profissional", "Valorizar a cultura musical local", "Criar um produto cultural de qualidade"],
+      metodologia: ["Gravação estúdio profissional", "Produção musical especializada", "Mixagem e masterização"],
+      cronograma: [
+        { fase: "Pré-produção", inicio: "01/04/2025", fim: "15/04/2025" },
+        { fase: "Gravação", inicio: "16/04/2025", fim: "30/06/2025" },
+        { fase: "Mixagem", inicio: "01/07/2025", fim: "15/07/2025" },
+        { fase: "Masterização", inicio: "16/07/2025", fim: "31/07/2025" },
+        { fase: "Lançamento", inicio: "01/09/2025", fim: "30/09/2025" }
+      ],
+      orcamento: [
+        { item: "Gravação estúdio", valor: 15000 },
+        { item: "Produção musical", valor: 8000 },
+        { item: "Mixagem e masterização", valor: 6000 },
+        { item: "Divulgação", valor: 6000 }
+      ]
     },
     {
       id: "2",
@@ -23,7 +41,23 @@ const ProponenteMeusProjetos = () => {
       status: "em_analise",
       valor_solicitado: 28000,
       edital: "001/2025-PINHAIS",
-      data_submissao: "18/02/2025"
+      data_submissao: "18/02/2025",
+      descricao: "Turnê musical pelas cidades da RMC apresentando repertório autoral",
+      justificativa: "Difusão da música paranaense em diferentes municípios",
+      objetivos: ["Levar música autonal para diferentes cidades", "Criar conexão cultural entre municípios", "Promover artistas locais"],
+      metodologia: ["Organização de shows", "Divulgação local", "Parcerias com prefeituras"],
+      cronograma: [
+        { fase: "Planejamento", inicio: "01/03/2025", fim: "15/03/2025" },
+        { fase: "Contato com prefeituras", inicio: "16/03/2025", fim: "31/03/2025" },
+        { fase: "Divulgação", inicio: "01/04/2025", fim: "15/04/2025" },
+        { fase: "Execução", inicio: "16/04/2025", fim: "30/06/2025" }
+      ],
+      orcamento: [
+        { item: "Locais de show", valor: 12000 },
+        { item: "Divulgação", valor: 6000 },
+        { item: "Transporte", valor: 5000 },
+        { item: "Equipe técnica", valor: 5000 }
+      ]
     },
     {
       id: "3",
@@ -31,7 +65,23 @@ const ProponenteMeusProjetos = () => {
       status: "rascunho",
       valor_solicitado: 45000,
       edital: null,
-      data_submissao: null
+      data_submissao: null,
+      descricao: "Festival de cultura local com música, teatro e artes visuais",
+      justificativa: "Agregação cultural e turística da região",
+      objetivos: ["Promover diversidade cultural", "Atrair turismo", "Criar evento anual"],
+      metodologia: ["Organização de palcos", "Convidar artistas", "Divulgação ampla"],
+      cronograma: [
+        { fase: "Planejamento", inicio: "01/05/2025", fim: "15/05/2025" },
+        { fase: "Seleção de artistas", inicio: "16/05/2025", fim: "31/05/2025" },
+        { fase: "Divulgação", inicio: "01/06/2025", fim: "30/06/2025" },
+        { fase: "Festival", inicio: "01/07/2025", fim: "03/07/2025" }
+      ],
+      orcamento: [
+        { item: "Palcos e estrutura", valor: 20000 },
+        { item: "Artistas convidados", valor: 15000 },
+        { item: "Divulgação", valor: 5000 },
+        { item: "Segurança e logística", valor: 5000 }
+      ]
     },
     {
       id: "4",
@@ -39,7 +89,23 @@ const ProponenteMeusProjetos = () => {
       status: "reprovado",
       valor_solicitado: 15000,
       edital: "002/2025-PINHAIS",
-      data_submissao: "10/01/2025"
+      data_submissao: "10/01/2025",
+      descricao: "Workshop de música para jovens iniciantes",
+      justificativa: "Formação musical de jovens da comunidade",
+      objetivos: ["Ensino musical básico", "Incentivar novos talentos", "Criar banda comunitária"],
+      metodologia: ["Aulas teóricas e práticas", "Prática em grupo", "Apresentação final"],
+      cronograma: [
+        { fase: "Captação de alunos", inicio: "01/02/2025", fim: "15/02/2025" },
+        { fase: "Aulas", inicio: "16/02/2025", fim: "30/04/2025" },
+        { fase: "Preparação apresentação", inicio: "01/05/2025", fim: "15/05/2025" },
+        { fase: "Apresentação", inicio: "20/05/2025", fim: "20/05/2025" }
+      ],
+      orcamento: [
+        { item: "Professores", valor: 8000 },
+        { item: "Material didático", valor: 3000 },
+        { item: "Local", valor: 2000 },
+        { item: "Divulgação", valor: 2000 }
+      ]
     }
   ];
 
@@ -196,9 +262,12 @@ const ProponenteMeusProjetos = () => {
                       Editar
                     </Button>
                   )}
-                  <Button size="sm" onClick={() => navigate(`/proponente/projetos/${projeto.id}`)}>
-                    {projeto.status === "rascunho" ? "Submeter" : "Ver Detalhes"}
-                  </Button>
+                  
+                  <ProjectDetailModal project={projeto}>
+                    <Button size="sm">
+                      {projeto.status === "rascunho" ? "Submeter" : "Ver Detalhes"}
+                    </Button>
+                  </ProjectDetailModal>
                 </div>
               </div>
             ))}
