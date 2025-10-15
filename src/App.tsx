@@ -10,10 +10,7 @@ import Login from "./pages/Login";
 import Cadastro from "./pages/Cadastro";
 import Municipios from "./pages/Municipios";
 import MunicipioDetalhe from "./pages/MunicipioDetalhe";
-import DashboardProponente from "./pages/DashboardProponente";
 import DashboardGestor from "./pages/DashboardGestor";
-import DashboardAnalista from "./pages/DashboardAnalista";
-import DashboardAdmin from "./pages/DashboardAdmin";
 import AnalistaAnalises from "./pages/AnalistaAnalises";
 import AnalistaNotificacoes from "./pages/AnalistaNotificacoes";
 import AnalistaRelatorios from "./pages/AnalistaRelatorios";
@@ -43,17 +40,8 @@ const queryClient = new QueryClient();
 const AppContent = () => {
   const { isAuthenticated, user } = useAuth();
 
-  // Debug: verificar se o hook está funcionando
-  console.log('AppContent - isAuthenticated:', isAuthenticated);
-  console.log('AppContent - user:', user);
-
   return (
     <>
-      {/* 
-        LÓGICA CORRETA:
-        - SEMPRE mostra a barra de navegação de visitante (Navbar) quando NÃO estiver autenticado
-        - Quando autenticado, a barra específica do dashboard é renderizada dentro do componente
-      */}
       {!isAuthenticated && <Navbar />}
       
       <Routes>
@@ -97,7 +85,6 @@ const AppContent = () => {
         <Route path="/novo-projeto" element={<NovoProjeto />} />
         <Route path="/auth-test" element={<AuthTestPage />} />
         
-        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
