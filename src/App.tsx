@@ -60,9 +60,9 @@ const AppContent = () => {
         <Route path="/contato" element={<Contato />} />
         
         {/* Rotas de Dashboard */}
-        <Route path="/dashboard/proponente" element={<DashboardProponente />} />
-        <Route path="/dashboard/analista" element={<DashboardAnalista />} />
-        <Route path="/dashboard/admin" element={<DashboardAdmin />} />
+        <Route path="/dashboard/proponente" element={<ProponenteDashboard />} />
+        <Route path="/dashboard/analista" element={<AnalistaDashboard />} />
+        <Route path="/dashboard/admin" element={<AdminDashboard />} />
         
         {/* Rotas específicas do analista */}
         <Route path="/analista/analises" element={<AnalistaAnalises />} />
