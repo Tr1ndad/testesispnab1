@@ -11,6 +11,9 @@ import Cadastro from "./pages/Cadastro";
 import Municipios from "./pages/Municipios";
 import MunicipioDetalhe from "./pages/MunicipioDetalhe";
 import DashboardGestor from "./pages/DashboardGestor";
+import DashboardProponente from "./pages/DashboardProponente";
+import DashboardAnalista from "./pages/DashboardAnalista";
+import DashboardAdmin from "./pages/DashboardAdmin";
 import AnalistaAnalises from "./pages/AnalistaAnalises";
 import AnalistaNotificacoes from "./pages/AnalistaNotificacoes";
 import AnalistaRelatorios from "./pages/AnalistaRelatorios";
@@ -31,9 +34,6 @@ import ProponenteMeusProjetos from "./pages/ProponenteMeusProjetos";
 import ProponenteEditais from "./pages/ProponenteEditais";
 import ProponenteNotificacoes from "./pages/ProponenteNotificacoes";
 import AuthTestPage from "./pages/AuthTest";
-import ProponenteDashboard from "./pages/ProponenteDashboard";
-import AnalistaDashboard from "./pages/AnalistaDashboard";
-import AdminDashboard from "./pages/AdminDashboard";
 
 const queryClient = new QueryClient();
 
@@ -60,9 +60,9 @@ const AppContent = () => {
         <Route path="/contato" element={<Contato />} />
         
         {/* Rotas de Dashboard */}
-        <Route path="/dashboard/proponente" element={<ProponenteDashboard />} />
-        <Route path="/dashboard/analista" element={<AnalistaDashboard />} />
-        <Route path="/dashboard/admin" element={<AdminDashboard />} />
+        <Route path="/dashboard/proponente" element={<DashboardProponente />} />
+        <Route path="/dashboard/analista" element={<DashboardAnalista />} />
+        <Route path="/dashboard/admin" element={<DashboardAdmin />} />
         
         {/* Rotas específicas do analista */}
         <Route path="/analista/analises" element={<AnalistaAnalises />} />
@@ -75,7 +75,7 @@ const AppContent = () => {
         <Route path="/admin/relatorios" element={<AdminRelatorios />} />
         
         {/* Rotas específicas do proponente */}
-        <Route path="/proponente/dashboard" element={<ProponenteDashboard />} />
+        <Route path="/proponente/dashboard" element={<DashboardProponente />} />
         <Route path="/proponente/meus-projetos" element={<ProponenteMeusProjetos />} />
         <Route path="/proponente/novos-editais" element={<ProponenteEditais />} />
         <Route path="/proponente/notificacoes" element={<ProponenteNotificacoes />} />
