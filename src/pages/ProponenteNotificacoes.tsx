@@ -1,4 +1,136 @@
-Todas as notificações`}
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import BarraNavegacaoProponente from "@/components/navigation/BarraNavegacaoProponente";
+
+const ProponenteNotificacoes = () => {
+  const [activeTab, setActiveTab] = useState("all");
+
+  const notificacoes = [
+    {
+      id: 1,
+      tipo: "aprovação",
+      titulo: "Proposta Aprovada",
+      mensagem: "Sua proposta 'Álbum Sons de Pinhais' foi aprovada pelo comitê de avaliação",
+      data: "2 horas atrás",
+      lida: false,
+      projeto: "Álbum Sons de Pinhais",
+      edital: "Prêmio de Música Popular 2025"
+    },
+    {
+      id: 2,
+      tipo: "analise",
+      titulo: "Nova Proposta em Análise",
+      mensagem: "Sua proposta 'Turnê Regional' está em análise pela equipe de avaliação",
+      data: "1 dia atrás",
+      lida: true,
+      projeto: "Turnê Regional",
+      edital: "Prêmio de Música Popular 2025"
+    },
+    {
+      id: 3,
+      tipo: "rejeicao",
+      titulo: "Proposta Rejeitada",
+      mensagem: "Sua proposta 'Workshop de Música' não foi selecionada para este edital",
+      data: "3 dias atrás",
+      lida: true,
+      projeto: "Workshop de Música",
+      edital: "Fomento ao Teatro Infantil"
+    },
+    {
+      id: 4,
+      tipo: "prazo",
+      titulo: "Prazo de Inscrição Próximo",
+      mensagem: "O edital 'Bolsa de Artes Visuais 2025' encerra em 5 dias. Inscreva-se agora!",
+      data: "1 semana atrás",
+      lida: true,
+      edital: "Bolsa de Artes Visuais 2025"
+    },
+    {
+      id: 5,
+      tipo: "sistema",
+      titulo: "Atualização do Sistema",
+      mensagem: "Nova versão do sistema disponível com melhorias na interface de projetos",
+      data: "2 semanas atrás",
+      lida: true
+    }
+  ];
+
+  const getTipoColor = (tipo: string) => {
+    switch (tipo) {
+      case "aprovação":
+        return "bg-green-100 text-green-800";
+      case "analise":
+        return "bg-yellow-100 text-yellow-800";
+      case "rejeicao":
+        return "bg-red-100 text-red-800";
+      case "prazo":
+        return "bg-orange-100 text-orange-800";
+      case "sistema":
+        return "bg-blue-100 text-blue-800";
+      default:
+        return "bg-gray-100 text-gray-800";
+    }
+  };
+
+  const getTipoIcon = (tipo: string) => {
+    switch (tipo) {
+      case "aprovação":
+        return "✅";
+      case "analise":
+        return "📝";
+      case "rejeicao":
+        return "❌";
+      case "prazo":
+        return "⏰";
+      case "sistema":
+        return "🔧";
+      default:
+        return "📢";
+    }
+  };
+
+  const getTipoText = (tipo: string) => {
+    switch (tipo) {
+      case "aprovação":
+        return "Aprovação";
+      case "analise":
+        return "Análise";
+      case "rejeicao":
+        return "Rejeição";
+      case "prazo":
+        return "Prazo";
+      case "sistema":
+        return "Sistema";
+      default:
+        return tipo;
+    }
+  };
+
+  const notificacoesFiltradas = notificacoes.filter(notif => {
+    if (activeTab === "all") return true;
+    return notif.tipo === activeTab;
+  });
+
+  const naoLidas = notificacoes.filter(n => !n.lida).length;
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Nova barra de navegação no topo */}
+      <BarraNavegacaoProponente />
+
+      {/* Main Content */}
+      <main className="max-w-4xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div className="px-4 py-6 sm:px-0">
+          {/* Header */}
+          <div className="mb-8">
+            <div className="flex justify-between items-center">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900">Notificações</h2>
+                <p className="mt-1 text-sm text-gray-600">
+                  {naoLidas > 0 ? `${naoLidas} notificações não lidas` : "Todas as notificações"}
                 </p>
               </div>
               {naoLidas > 0 && (
@@ -23,9 +155,9 @@ Todas as notificações`}
                 Todas ({notificacoes.length})
               </button>
               <button
-                onClick={() => setActiveTab("aprovacao")}
+                onClick={() => setActiveTab("aprovação")}
                 className={`px-4 py-2 rounded-lg text-sm font-medium ${
-                  activeTab === "aprovacao"
+                  activeTab === "aprovação"
                     ? "bg-green-100 text-green-700"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
@@ -41,16 +173,6 @@ Todas as notificações`}
                 }`}
               >
                 Análises (1)
-              </button>
-              <button
-                onClick={() => setActiveTab("rejeicao")}
-                className={`px-4 py-2 rounded-lg text-sm font-medium ${
-                  activeTab === "rejeicao"
-                    ? "bg-red-100 text-red-700"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                Rejeições (1)
               </button>
               <button
                 onClick={() => setActiveTab("prazo")}
