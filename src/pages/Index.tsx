@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
 const Index = () => {
@@ -92,9 +93,9 @@ const Index = () => {
                 </div>
               </div>
               <Link to="/municipios/pinhais">
-                <a className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition-colors block text-center">
+                <button className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition-colors block text-center">
                   Ver Detalhes
-                </a>
+                </button>
               </Link>
             </div>
 
@@ -117,9 +118,9 @@ const Index = () => {
                 </div>
               </div>
               <Link to="/municipios/piraquara">
-                <a className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition-colors block text-center">
+                <button className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition-colors block text-center">
                   Ver Detalhes
-                </a>
+                </button>
               </Link>
             </div>
 
@@ -142,9 +143,9 @@ const Index = () => {
                 </div>
               </div>
               <Link to="/municipios/colombo">
-                <a className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition-colors block text-center">
+                <button className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition-colors block text-center">
                   Ver Detalhes
-                </a>
+                </button>
               </Link>
             </div>
           </div>
@@ -178,14 +179,14 @@ const Index = () => {
               </div>
               <div className="flex gap-2">
                 <Link to="/editais/1">
-                  <a className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-md text-sm transition-colors text-center">
+                  <button className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-md text-sm transition-colors text-center">
                     Ver Detalhes
-                  </a>
+                  </button>
                 </Link>
                 <Link to="/editais/1">
-                  <a className="flex-1 bg-white border border-green-600 text-green-600 hover:bg-green-50 py-2 rounded-md text-sm transition-colors text-center">
+                  <button className="flex-1 bg-white border border-green-600 text-green-600 hover:bg-green-50 py-2 rounded-md text-sm transition-colors text-center">
                     Baixar PDF
-                  </a>
+                  </button>
                 </Link>
               </div>
             </div>
@@ -210,14 +211,14 @@ const Index = () => {
               </div>
               <div className="flex gap-2">
                 <Link to="/editais/2">
-                  <a className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-md text-sm transition-colors text-center">
+                  <button className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-md text-sm transition-colors text-center">
                     Ver Detalhes
-                  </a>
+                  </button>
                 </Link>
                 <Link to="/editais/2">
-                  <a className="flex-1 bg-white border border-green-600 text-green-600 hover:bg-green-50 py-2 rounded-md text-sm transition-colors text-center">
+                  <button className="flex-1 bg-white border border-green-600 text-green-600 hover:bg-green-50 py-2 rounded-md text-sm transition-colors text-center">
                     Baixar PDF
-                  </a>
+                  </button>
                 </Link>
               </div>
             </div>
@@ -242,14 +243,14 @@ const Index = () => {
               </div>
               <div className="flex gap-2">
                 <Link to="/editais/3">
-                  <a className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-2 rounded-md text-sm transition-colors text-center">
+                  <button className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-2 rounded-md text-sm transition-colors text-center">
                     Ver Detalhes
-                  </a>
+                  </button>
                 </Link>
                 <Link to="/editais/3">
-                  <a className="flex-1 bg-white border border-gray-600 text-gray-600 hover:bg-gray-50 py-2 rounded-md text-sm transition-colors text-center">
+                  <button className="flex-1 bg-white border border-gray-600 text-gray-600 hover:bg-gray-50 py-2 rounded-md text-sm transition-colors text-center">
                     Baixar PDF
-                  </a>
+                  </button>
                 </Link>
               </div>
             </div>
@@ -367,9 +368,9 @@ const Index = () => {
             Junte-se a centenas de artistas beneficiados pela PNAB
           </p>
           <Link to="/cadastro">
-            <a className="bg-white text-green-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-medium transition-colors inline-block">
+            <button className="bg-white text-green-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-medium transition-colors inline-block">
               Criar Conta
-            </a>
+            </button>
           </Link>
         </div>
       </section>
