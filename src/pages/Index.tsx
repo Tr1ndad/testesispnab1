@@ -1,5 +1,3 @@
-import { MadeWithDyad } from "@/components/made-with-dyad";
-import { Link } from "react-router-dom";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
 const Index = () => {
@@ -426,8 +424,6 @@ const Index = () => {
           </div>
         </div>
       </footer>
-
-      <MadeWithDyad />
     </div>
   );
 };
