@@ -211,12 +211,12 @@ const Index = () => {
               </div>
               <div className="flex gap-2">
                 <Link to="/editais/2">
-                  <button className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-md text-sm transition-colors text-center">
+                  <button className="flex-2 bg-green-600 hover:bg-green-700 text-white py-2 rounded-md text-sm transition-colors text-center">
                     Ver Detalhes
                   </button>
                 </Link>
                 <Link to="/editais/2">
-                  <button className="flex-1 bg-white border border-green-600 text-green-600 hover:bg-green-50 py-2 rounded-md text-sm transition-colors text-center">
+                  <button className="flex-2 bg-white border border-green-600 text-green-600 hover:bg-green-50 py-2 rounded-md text-sm transition-colors text-center">
                     Baixar PDF
                   </button>
                 </Link>
