@@ -32,6 +32,7 @@ import AnalistaDashboard from './pages/DashboardAnalista';
 import AnalistaNotificacoes from './pages/AnalistaNotificacoes';
 import LoginTest from './pages/LoginTest';
 import RedirectionTest from './pages/RedirectionTest';
+import LayoutPublico from './components/layout/LayoutPublico';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 
 function App() {
@@ -39,23 +40,27 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          {/* Rotas PÚBLICAS - SEM PROTEÇÃO, SEM REDIRECIONAMENTO AUTOMÁTICO */}
-          <Route path="/" element={<Index />} />
+          {/* Rotas PÚBLICAS - COM LAYOUT PÚBLICO */}
+          <Route element={<LayoutPublico />}>
+            <Route path="/" element={<Index />} />
+            <Route path="/index" element={<Index />} />
+            <Route path="/municipios" element={<Municipios />} />
+            <Route path="/editais" element={<Editais />} />
+            <Route path="/projetos" element={<Projetos />} />
+            <Route path="/indicadores" element={<Indicadores />} />
+            <Route path="/sobre" element={<Sobre />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/contato" element={<Contato />} />
+            <Route path="/editais/:id" element={<EditalDetalhe />} />
+            <Route path="/projetos/:id" element={<ProjetoDetalhe />} />
+          </Route>
+          
+          {/* Rotas de autenticação */}
           <Route path="/login" element={<Login />} />
           <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/auth-test" element={<AuthTest />} />
           <Route path="/login-test" element={<LoginTest />} />
           <Route path="/redirection-test" element={<RedirectionTest />} />
-          <Route path="/index" element={<Index />} />
-          <Route path="/municipios" element={<Municipios />} />
-          <Route path="/editais" element={<Editais />} />
-          <Route path="/projetos" element={<Projetos />} />
-          <Route path="/indicadores" element={<Indicadores />} />
-          <Route path="/sobre" element={<Sobre />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/contato" element={<Contato />} />
-          <Route path="/editais/:id" element={<EditalDetalhe />} />
-          <Route path="/projetos/:id" element={<ProjetoDetalhe />} />
           
           {/* Rotas PROTEGIDAS - COM VERIFICAÇÃO DE AUTENTICAÇÃO E ROLE */}
           <Route 

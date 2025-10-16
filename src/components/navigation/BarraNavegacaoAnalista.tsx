@@ -1,6 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import LogoutButton from '../auth/LogoutButton';
 
 const BarraNavegacaoAnalista = () => {
+  const location = useLocation();
+
   return (
     <nav className="bg-white shadow-sm border-b">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -12,21 +15,43 @@ const BarraNavegacaoAnalista = () => {
             <nav className="ml-10 flex space-x-8">
               <Link 
                 to="/dashboard/analista"
-                className="text-blue-700 border-b-2 border-blue-700 px-1 pt-1 text-sm font-medium"
+                className={`px-1 pt-1 text-sm font-medium ${
+                  location.pathname === '/dashboard/analista' 
+                    ? 'border-b-2 border-blue-500 text-blue-600' 
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
               >
                 Dashboard
               </Link>
               <Link 
                 to="/analista/analises"
-                className="text-gray-500 hover:text-gray-700 px-1 pt-1 text-sm font-medium"
+                className={`px-1 pt-1 text-sm font-medium ${
+                  location.pathname === '/analista/analises' 
+                    ? 'border-b-2 border-blue-500 text-blue-600' 
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
               >
                 Análises
               </Link>
               <Link 
                 to="/analista/relatorios"
-                className="text-gray-500 hover:text-gray-700 px-1 pt-1 text-sm font-medium"
+                className={`px-1 pt-1 text-sm font-medium ${
+                  location.pathname === '/analista/relatorios' 
+                    ? 'border-b-2 border-blue-500 text-blue-600' 
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
               >
                 Relatórios
+              </Link>
+              <Link 
+                to="/analista/notificacoes"
+                className={`px-1 pt-1 text-sm font-medium ${
+                  location.pathname === '/analista/notificacoes' 
+                    ? 'border-b-2 border-blue-500 text-blue-600' 
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
+              >
+                Notificações
               </Link>
             </nav>
           </div>
@@ -39,6 +64,9 @@ const BarraNavegacaoAnalista = () => {
               <div className="h-8 w-8 rounded-full bg-green-400 flex items-center justify-center text-white text-sm font-medium">
                 CS
               </div>
+              <LogoutButton className="text-sm text-gray-600 hover:text-gray-900">
+                Sair
+              </LogoutButton>
             </div>
           </div>
         </div>
