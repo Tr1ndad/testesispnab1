@@ -101,7 +101,7 @@ function App() {
             path="/proponente/novos-editais" 
             element={
               <ProtectedRoute requiredRole="proponente">
-                <ProponenteEditais />
+                <ProponenteEditais key="novos-editais" />
               </ProtectedRoute>
             } 
           />

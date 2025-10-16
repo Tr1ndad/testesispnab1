@@ -1,8 +1,9 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
 
 const BarraNavegacaoProponente = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     <nav className="bg-white shadow-sm border-b">
@@ -33,8 +34,12 @@ const BarraNavegacaoProponente = () => {
               >
                 Meus Projetos
               </Link>
-              <Link 
-                to="/proponente/novos-editais"
+              <button
+                onClick={() => {
+                  if (location.pathname !== '/proponente/novos-editais') {
+                    navigate('/proponente/novos-editais');
+                  }
+                }}
                 className={`px-1 pt-1 text-sm font-medium ${
                   location.pathname === '/proponente/novos-editais' 
                     ? 'border-b-2 border-blue-500 text-blue-600' 
@@ -42,7 +47,7 @@ const BarraNavegacaoProponente = () => {
                 }`}
               >
                 Novos Editais
-              </Link>
+              </button>
               <Link 
                 to="/proponente/notificacoes"
                 className={`px-1 pt-1 text-sm font-medium ${
