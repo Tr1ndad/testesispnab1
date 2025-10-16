@@ -64,7 +64,7 @@ const BarraNavegacaoProponente = () => {
               <div className="h-8 w-8 rounded-full bg-blue-400 flex items-center justify-center text-white text-sm font-medium">
                 JA
               </div>
-              <LogoutButton className="text-sm text-gray-600 hover:text-gray-900">
+              <LogoutButton className="ml-4 text-sm text-gray-600 hover:text-gray-900 font-medium">
                 Sair
               </LogoutButton>
             </div>
