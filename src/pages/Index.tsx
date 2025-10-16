@@ -183,7 +183,7 @@ const Index = () => {
                     Ver Detalhes
                   </button>
                 </Link>
-                <Link to="/editais/2">
+                <Link to="/editais/1">
                   <button className="flex-1 bg-white border border-green-600 text-green-600 hover:bg-green-50 py-2 rounded-md text-sm transition-colors text-center">
                     Baixar PDF
                   </button>
